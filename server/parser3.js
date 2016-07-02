@@ -12,14 +12,19 @@ data.forEach((line) => {
             res[num] = {};
             break;
         case 'St':
-            var field = line.split(': ')[0];
+            var field = line.split(': ')[0].toLowerCase();
             var stars = line.split(': ')[1];
             stars = stars.split(', ');
             res[num][field] = stars;
             break;
+        case "Re":
+            var field = 'year';
+            var value = line.split(': ')[1];
+            res[num][field] = value;
+            break;
         default:
             // code
-            var field = line.split(': ')[0];
+            var field = line.split(': ')[0].toLowerCase();
             var value = line.split(': ')[1];
             res[num][field] = value;
     }
