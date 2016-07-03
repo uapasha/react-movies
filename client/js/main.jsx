@@ -16,11 +16,37 @@ let data = [
 ////// MOVIES BOX ////////////
 
 class MoviesBox extends React.Component{
+    constructor(props){
+        super(props);
+        this.state = {
+            data: []
+        }
+    }
+
+    fetchData() {
+        $.ajax({
+            url: this.props.url,
+            dataType: 'json',
+            cache: false,
+            success: function(data) {
+                this.setState({data: data});
+            }.bind(this),
+            error: function(xhr, status, err) {
+                console.error(this.props.url, status, err.toString());
+            }.bind(this)
+        });
+    }
+
+    componentDidMount(){
+        this.fetchData()
+    }
+
     render() {
+
         return (
             <div className="moviesBox">
                 Hello, world! We are the movies.
-                <MoviesList data={this.props.data}/>
+                <MoviesList data={this.state.data.movies ? this.state.data.movies : this.state.data}/>
             </div>
         );
     }
@@ -62,6 +88,6 @@ class Movie extends React.Component{
 ////// Render ////////////
 
 ReactDOM.render(
-<MoviesBox data = {data}/>,
+<MoviesBox data = {data} url="http://localhost:3000/api/v1/movies/"/>,
     document.getElementById('content')
 );

@@ -15,6 +15,7 @@ module.exports = function(wagner) {
                             .status(status.INTERNAL_SERVER_ERROR)
                             .json({error: error.toString()});
                     }
+                    res.header('Access-Control-Allow-Origin', '*');
                     res.json({movies: movies})
                 });
         };
