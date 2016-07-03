@@ -40,6 +40,20 @@ class MoviesBox extends React.Component{
     componentDidMount(){
         this.fetchData()
     }
+    handleMovieSubmit(movie) {
+        $.ajax({
+            url: this.props.url,
+            dataType: 'json',
+            type: 'POST',
+            data: movie,
+            success: function(data) {
+                this.setState({data: data});
+            }.bind(this),
+            error: function(xhr, status, err) {
+                console.error(this.props.url, status, err.toString());
+            }.bind(this)
+        });
+    }
 
     render() {
 
@@ -47,7 +61,7 @@ class MoviesBox extends React.Component{
             <div className="moviesBox">
                 Hello, world! We are the movies.
                 <MoviesList data={this.state.data.movies ? this.state.data.movies : this.state.data}/>
-                <MovieForm/>
+                <MovieForm onMovieSubmit={this.handleMovieSubmit.bind(this)}/>
             </div>
         );
     }
@@ -59,8 +73,7 @@ class MoviesList extends React.Component{
 
     renderMovies(){
         return this.props.data.map((movie)=>{
-            return<Movie title = {movie.title} key={movie._id}>
-                Movie Format: {movie.format}
+            return<Movie movie = {movie} key={movie._id}>
             </Movie>
         })
     }
@@ -76,12 +89,38 @@ class MoviesList extends React.Component{
 
 ////// Single movie ////////////
 class Movie extends React.Component{
+    renderStars(){
+        if (this.props.movie.stars && this.props.movie.stars.length>0){
+            return <ul className="movieStars">
+                <h2>Stars:</h2>
+                {this.props.movie.stars.map((star) => {
+                    return <li>{star}</li>
+                })}
+                </ul>
+        } else return<p className="message">No stars are provided</p>
+    }
     render(){
         return<div className="movie">
             <h2 className='movieTitle'>
-                {this.props.title}
+                {this.props.movie.title}
             </h2>
-            {this.props.children}
+            <p>Year:
+                <strong>
+                    {this.props.movie.year ? this.props.movie.year :
+                        <strong className="message">
+                            {'Year of release is unknown'}
+                        </strong>
+                    }
+                </strong>
+            </p>
+            <p>Format:
+                <strong>
+                    {this.props.movie.format ? this.props.movie.format :
+                        <strong className="message">
+                            {'No format provided'}
+                        </strong>}
+                </strong>
+            </p>
         </div>
     }
 }
@@ -145,7 +184,7 @@ class MovieForm extends React.Component{
         let format = this.state.format.trim();
         let stars = this.state.stars;
         let movie = {title: title, year: year, format: format, stars: stars};
-        console.log(movie);
+        this.props.onMovieSubmit(movie);
         // TODO: send request to the server
         this.setState({
             title: '',
