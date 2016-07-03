@@ -43,6 +43,8 @@ class MoviesBox extends React.Component{
         this.fetchData()
     }
     handleMovieSubmit(movie) {
+
+        //TODO optimistic updates ??
         $.ajax({
             url: this.props.submitUrl,
             dataType: 'json',
@@ -56,15 +58,6 @@ class MoviesBox extends React.Component{
             }.bind(this)
         });
     }
-
-    // handleLoadMore(e){
-    //     e.preventDefault();
-    //     const nextPage = this.state.page+1;
-    //     this.setState({
-    //         page: nextPage
-    //     });
-    //     this.fetchData();
-    // }
 
     render() {
         return (
@@ -105,10 +98,12 @@ class MoviesList extends React.Component{
 class Movie extends React.Component{
     renderStars(){
         if (this.props.movie.stars && this.props.movie.stars.length>0){
+            let numForKey = 0
             return <ul className="movieStars">
                 <h2>Stars:</h2>
                 {this.props.movie.stars.map((star) => {
-                    return <li>{star}</li>
+                    numForKey += 1
+                    return <li key={star + "_" + numForKey}>{star}</li>
                 })}
                 </ul>
         } else return<p className="message">No stars are provided</p>
@@ -135,6 +130,7 @@ class Movie extends React.Component{
                         </strong>}
                 </strong>
             </p>
+            {this.renderStars()}
         </div>
     }
 }
