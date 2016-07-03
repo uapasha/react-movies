@@ -1,11 +1,11 @@
 var fs = require('fs');
 
-var parser = function() {
+var parser = function(filepath) {
     var res = [{}];
 
     var num = 0;
 
-    var data = fs.readFileSync('sample_movies.txt').toString().split("\n");
+    var data = fs.readFileSync(filepath).toString().split("\n");
     data.forEach((line) => {
         line = line.replace('\r', '');
 
@@ -27,9 +27,9 @@ var parser = function() {
                 res[num][field] = value;
                 break;
             default:
-                // code
-                var field = line.split(': ')[0].toLowerCase();
-                var value = line.split(': ')[1];
+                // avoid ':' in the title of the movie
+                var field = line.substring(0, line.indexOf(':')).toLowerCase();;
+                var value = line.substring(line.indexOf(':')+2);
                 res[num][field] = value;
         }
     });
