@@ -12,7 +12,7 @@ class MoviesBox extends React.Component{
 
     fetchData() {
         const url = this.props.url + this.state.page + '/';
-        console.log(url);
+
         $.ajax({
             url: url,
             dataType: 'json',
@@ -76,10 +76,99 @@ class MoviesBox extends React.Component{
 ////// MOVIES LIST ////////////
 
 class MoviesList extends React.Component{
+    constructor(props){
+        super(props);
+        this.state = {
+            sortDirection: 'asc',
+            sortDirectionMethods: ["asc", "desc"],
+            sortBy: 'title',
+            sortByMethods: ['year', 'title', 'format'],
+            data: this.props.data
+        };
+        this.handleSortByChange = this.handleSortByChange.bind(this);
+        this.handleSortDirectionMethods = this.handleSortDirectionMethods.bind(this);
+    }
+
+    componentWillReceiveProps(nextProps) {
+        this.setState({
+            data: nextProps.data
+        });
+        this.sort(nextProps)
+    }
+
+    handleSortByChange(e){
+
+        this.setState({
+            sortBy: e.target.value
+        });
+        this.sort(null, e.target.value);
+
+    }
+
+
+    handleSortDirectionMethods(e){
+        this.setState({
+            sortDirection: e.target.value,
+        });
+        this.sort();
+
+    }
+
+    sort(nextProps, sortBy){
+        var sortAsc, sortDesc;
+        let sortCriterium = this.state.sortBy;
+        if (!!sortBy && sortCriterium !== sortBy){
+            sortCriterium =  sortBy;
+        }
+        switch (sortCriterium){
+            case "year" :
+                sortAsc  = (a, b) => parseInt(a.year, 10) - parseInt(b.year, 10);
+                sortDesc = (a, b) => parseInt(b.year, 10) - parseInt(a.year, 10);
+                break;
+            case "format":
+                sortAsc  = function(a, b){
+                    if(a.format > b.format){
+                        return 1
+                    } else if(a.format < b.format) {
+                        return -1
+                    } else return 0};
+                sortDesc = function(a, b){
+                    if(a.format < b.format){
+                        return 1
+                    } else if(a.format > b.format) {
+                        return -1
+                    } else return 0};
+                break;
+            default:
+                sortAsc  = function(a, b){
+                    if(a.title > b.title){
+                        return 1
+                    } else if(a.title < b.title) {
+                        return -1
+                    } else return 0};
+                sortDesc = function(a, b){
+                    if(a.title < b.title){
+                        return 1
+                    } else if(a.title > b.title) {
+                        return -1
+                    } else return 0};
+        }
+
+        if(!!nextProps){
+            this.setState({
+                data: nextProps.data.sort(this.state.sortDirection === 'asc' ? sortAsc: sortDesc),
+            });
+        } else {
+            this.setState({
+                data: this.state.data.sort(this.state.sortDirection === 'asc' ? sortDesc: sortAsc),
+            })
+        }
+
+    }
 
     renderMovies(){
-        if (this.props.data.length === 0) return <p className = 'message'>Movies are loading</p>;
-        return this.props.data.map((movie)=>{
+        if (this.state.data.length === 0) return <p className = 'message'>Movies are loading</p>;
+        return this.state.data.map((movie)=>{
             return<Movie movie = {movie} key={movie._id} deleteUrl = {this.props.deleteUrl}>
             </Movie>
         })
@@ -87,6 +176,21 @@ class MoviesList extends React.Component{
 
     render(){
         return <div className="moviesList">
+            <select name="changeSortBy" onChange={this.handleSortByChange} value={this.state.sortBy}>
+                {this.state.sortByMethods.map((method)=>{
+                    return<option key={"select" + method} value={method}>
+                        {method.charAt(0).toUpperCase() + method.substring(1).toLowerCase()}
+                    </option>
+                })}
+            </select>
+            <select name="changeSortBy" onChange={this.handleSortDirectionMethods}
+                    value={this.state.sortDirection}>
+                {this.state.sortDirectionMethods.map((method)=>{
+                    return<option key={"select" + method} value={method}>
+                        {method=='asc' ? "Ascending" : "Descending"}
+                    </option>
+                })}
+            </select>
             {this.renderMovies()}
         </div>
     }
@@ -106,7 +210,11 @@ class Movie extends React.Component{
             url: this.props.deleteUrl + this.props.movie._id,
             type: 'DELETE',
             success: function (res) {
-                console.log(res);
+
+                // TODO reconsder this approach
+                if (res.status && res.status === 'ok'){
+                    location.reload()
+                }
             }.bind(this),
             error: function(xhr, status, err) {
                 console.error(this.props.url, status, err.toString());

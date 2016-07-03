@@ -61,13 +61,13 @@ module.exports = function(wagner) {
     api.delete('/movies/delete/:id', wagner.invoke(function (Movie) {
         return function (req, res) {
             var _id = req.params.id;
-            Movie.remove({_id:_id}, function(err,removed) {
-                if(err) return console.error(err);
+            Movie.remove({_id: _id}, function (err, removed) {
+                if (err) return console.error(err);
             });
             res.json({'status': 'ok'});
             //res.redirect('/movies/');
         }
-    }));
+        }));
     api.get('/movies/delete/:id', wagner.invoke(function (Movie) {
         return function (req, res) {
             res.send('This is for deletion only');
