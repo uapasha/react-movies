@@ -8,7 +8,6 @@ class MoviesBox extends React.Component{
             page:1,
             noMoreMovies:false
         };
-        //this.handleLoadMore = this.handleLoadMore.bind(this);
     }
 
     fetchData() {
@@ -63,7 +62,8 @@ class MoviesBox extends React.Component{
         return (
             <div className="moviesBox">
                 Hello, world! We are the movies.
-                <MoviesList data={this.state.data.movies ? this.state.data.movies : this.state.data}/>
+                <MoviesList data={this.state.data.movies ? this.state.data.movies : this.state.data}
+                            deleteUrl = {this.props.deleteUrl}/>
                 <MovieForm onMovieSubmit={this.handleMovieSubmit.bind(this)}/>
                 {this.state.noMoreMovies ?
                     <p className="message">No more movies to load</p> :
@@ -80,7 +80,7 @@ class MoviesList extends React.Component{
     renderMovies(){
         if (this.props.data.length === 0) return <p className = 'message'>Movies are loading</p>;
         return this.props.data.map((movie)=>{
-            return<Movie movie = {movie} key={movie._id}>
+            return<Movie movie = {movie} key={movie._id} deleteUrl = {this.props.deleteUrl}>
             </Movie>
         })
     }
@@ -96,18 +96,37 @@ class MoviesList extends React.Component{
 
 ////// Single movie ////////////
 class Movie extends React.Component{
+    constructor(props){
+        super(props);
+        this.handleMovieRemove = this.handleMovieRemove.bind(this);
+    }
+
+    handleMovieRemove(){
+        $.ajax({
+            url: this.props.deleteUrl + this.props.movie._id,
+            type: 'DELETE',
+            success: function (res) {
+                console.log(res);
+            }.bind(this),
+            error: function(xhr, status, err) {
+                console.error(this.props.url, status, err.toString());
+            }.bind(this)
+        });
+    }
+    
     renderStars(){
         if (this.props.movie.stars && this.props.movie.stars.length>0){
-            let numForKey = 0
+            let numForKey = 0;
             return <ul className="movieStars">
                 <h2>Stars:</h2>
                 {this.props.movie.stars.map((star) => {
-                    numForKey += 1
+                    numForKey += 1;
                     return <li key={star + "_" + numForKey}>{star}</li>
                 })}
                 </ul>
         } else return<p className="message">No stars are provided</p>
     }
+    
     render(){
         return<div className="movie">
             <h2 className='movieTitle'>
@@ -131,6 +150,7 @@ class Movie extends React.Component{
                 </strong>
             </p>
             {this.renderStars()}
+            <button onClick={this.handleMovieRemove}>Remove movie</button>
         </div>
     }
 }
@@ -252,6 +272,8 @@ class MovieForm extends React.Component{
 ////// Render ////////////
 
 ReactDOM.render(
-<MoviesBox url="http://localhost:3000/api/v1/movies/page/" submitUrl="http://localhost:3000/api/v1/movies/"/>,
+<MoviesBox url="http://localhost:3000/api/v1/movies/page/" 
+           submitUrl="http://localhost:3000/api/v1/movies/" 
+           deleteUrl="http://localhost:3000/api/v1/movies/delete/"/>,
     document.getElementById('content')
 );
