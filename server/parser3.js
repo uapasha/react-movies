@@ -7,7 +7,7 @@ var parser = function(filepath) {
 
     var data = fs.readFileSync(filepath).toString().split("\n");
     data.forEach((line) => {
-        line = line.replace('\r', '');
+        line = line.trim();
 
         switch (line.substr(0, 2)) {
             case '':
@@ -36,5 +36,4 @@ var parser = function(filepath) {
     //console.log(res);
     return res
 };
-
 module.exports = parser;
