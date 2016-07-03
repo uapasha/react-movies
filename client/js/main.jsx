@@ -5,18 +5,33 @@ class MoviesBox extends React.Component{
         super(props);
         this.state = {
             data: [],
-            page:1
-        }
+            page:1,
+            noMoreMovies:false
+        };
+        //this.handleLoadMore = this.handleLoadMore.bind(this);
     }
 
     fetchData() {
+        const url = this.props.url + this.state.page + '/';
+        console.log(url);
         $.ajax({
-            url: this.props.url + this.state.page + '/',
+            url: url,
             dataType: 'json',
             cache: false,
             success: function(data) {
+                if (data.movies.length == 0 || data.movies.length < 20){
+                    this.setState({
+                        noMoreMovies: true
+                    })
+                }
+
                 let allMovies = this.state.data.concat(data.movies);
-                this.setState({data: allMovies});
+
+                this.setState({
+                    data: allMovies,
+                    page:this.state.page + 1
+                });
+
             }.bind(this),
             error: function(xhr, status, err) {
                 console.error(this.props.url, status, err.toString());
@@ -42,12 +57,24 @@ class MoviesBox extends React.Component{
         });
     }
 
+    // handleLoadMore(e){
+    //     e.preventDefault();
+    //     const nextPage = this.state.page+1;
+    //     this.setState({
+    //         page: nextPage
+    //     });
+    //     this.fetchData();
+    // }
+
     render() {
         return (
             <div className="moviesBox">
                 Hello, world! We are the movies.
                 <MoviesList data={this.state.data.movies ? this.state.data.movies : this.state.data}/>
                 <MovieForm onMovieSubmit={this.handleMovieSubmit.bind(this)}/>
+                {this.state.noMoreMovies ?
+                    <p className="message">No more movies to load</p> :
+                    <button onClick={this.fetchData.bind(this)}>Load More</button>}
             </div>
         );
     }
@@ -172,7 +199,6 @@ class MovieForm extends React.Component{
         let stars = this.state.stars;
         let movie = {title: title, year: year, format: format, stars: stars};
         this.props.onMovieSubmit(movie);
-        // TODO: send request to the server
         this.setState({
             title: '',
             year: '2016',

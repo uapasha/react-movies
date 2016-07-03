@@ -43,7 +43,6 @@ module.exports = function(wagner) {
     api.get('/movies/page/:page/', wagner.invoke(function(Movie) {
         return function(req, res){
             var page = req.params.page;
-            console.log(page);
             findPageMovies(Movie, res, page);
         };
     }));
@@ -54,7 +53,6 @@ module.exports = function(wagner) {
             var newMovie = new Movie(movie);
             newMovie.save(function (err, newMovie) {
                 if (err) return console.error(err);
-                //console.log(newMovie);
             });
             findAllMovies(Movie, res);
         }
@@ -65,7 +63,6 @@ module.exports = function(wagner) {
             var _id = req.perams.id;
             Movie.remove({_id:_id});
             findAllMovies();
-
         }
     }));
     
