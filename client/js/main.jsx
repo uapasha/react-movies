@@ -1,35 +1,22 @@
-let data = [
-        {"_id":"5778ac833d1c86241de6dcc7","title":"Casablanca",
-            "year":1942,"format":"DVD","__v":0,
-            "stars":[
-                "Humphrey Bogart","Ingrid Bergman","Claude Rains",
-                "Peter Lorre"
-            ]
-        },
-        {"_id":"5778ac833d1c86241de6dcdd","title":"Harvey",
-            "year":1950,"format":"DVD","__v":0,
-            "stars":[
-                "James Stewart","Josephine Hull","Peggy Dow",
-                "Charles Drake"]}];
-
-
 ////// MOVIES BOX ////////////
 
 class MoviesBox extends React.Component{
     constructor(props){
         super(props);
         this.state = {
-            data: []
+            data: [],
+            page:1
         }
     }
 
     fetchData() {
         $.ajax({
-            url: this.props.url,
+            url: this.props.url + this.state.page + '/',
             dataType: 'json',
             cache: false,
             success: function(data) {
-                this.setState({data: data});
+                let allMovies = this.state.data.concat(data.movies);
+                this.setState({data: allMovies});
             }.bind(this),
             error: function(xhr, status, err) {
                 console.error(this.props.url, status, err.toString());
@@ -42,7 +29,7 @@ class MoviesBox extends React.Component{
     }
     handleMovieSubmit(movie) {
         $.ajax({
-            url: this.props.url,
+            url: this.props.submitUrl,
             dataType: 'json',
             type: 'POST',
             data: movie,
@@ -56,7 +43,6 @@ class MoviesBox extends React.Component{
     }
 
     render() {
-
         return (
             <div className="moviesBox">
                 Hello, world! We are the movies.
@@ -72,6 +58,7 @@ class MoviesBox extends React.Component{
 class MoviesList extends React.Component{
 
     renderMovies(){
+        if (this.props.data.length === 0) return <p className = 'message'>Movies are loading</p>;
         return this.props.data.map((movie)=>{
             return<Movie movie = {movie} key={movie._id}>
             </Movie>
@@ -243,6 +230,6 @@ class MovieForm extends React.Component{
 ////// Render ////////////
 
 ReactDOM.render(
-<MoviesBox data = {data} url="http://localhost:3000/api/v1/movies/"/>,
+<MoviesBox url="http://localhost:3000/api/v1/movies/page/" submitUrl="http://localhost:3000/api/v1/movies/"/>,
     document.getElementById('content')
 );
