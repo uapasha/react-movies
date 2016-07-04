@@ -1,0 +1,27 @@
+.class {
+    all:reset;
+    something: reset;
+}
+
+a[href]:empty::after {
+    content: attr(href);
+}
+
+/*#####################
+example: 
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>JS Bin</title>
+</head>
+<body>
+  <div><a href = 'google.com'></a></div>
+</body>
+</html>
+*/
+
+float, clear, position, display, flex, stacking context (!), specificity, postcss
+preprocessor, postprocessor css

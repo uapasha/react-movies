@@ -1,7 +1,6 @@
 import React from 'react';
 import MovieForm from './MovieForm.jsx';
 import MoviesList from './MoviesList.jsx';
-// import 'whatwg-fetch';
 
 
 export default class MoviesBox extends React.Component{
@@ -73,18 +72,6 @@ export default class MoviesBox extends React.Component{
         .catch((error) => console.error(error));
 
         //TODO optimistic updates ??
-        // $.ajax({
-        //     url: this.props.submitUrl,
-        //     dataType: 'json',
-        //     type: 'POST',
-        //     data: movie,
-        //     success: function(data) {
-        //         this.setState({data: data});
-        //     }.bind(this),
-        //     error: function(xhr, status, err) {
-        //         console.error(this.props.url, status, err.toString());
-        //     }.bind(this)
-        // });
     }
 
     render() {
@@ -92,7 +79,7 @@ export default class MoviesBox extends React.Component{
             <div className="moviesBox">
                 Hello, world! We are the movies.
                 <MoviesList data={this.state.data.movies ? this.state.data.movies : this.state.data}
-                            deleteUrl = {this.props.deleteUrl}/>
+                            deleteUrl = {this.props.deleteUrl} fileUploadUrl = {this.props.fileUploadUrl}/>
                 <MovieForm onMovieSubmit={this.handleMovieSubmit.bind(this)}/>
                 {this.state.noMoreMovies ?
                     <p className="message">No more movies to load</p> :

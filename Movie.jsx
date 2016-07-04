@@ -7,21 +7,12 @@ export default class Movie extends React.Component{
     }
 
     handleMovieRemove(){
-        $.ajax({
-            url: this.props.deleteUrl + this.props.movie._id,
-            type: 'DELETE',
-            success: function (res) {
 
-                // TODO reconsder this approach
-                if (res.status && res.status === 'ok'){
-                    location.reload()
-                }
-            }.bind(this),
-            error: function(xhr, status, err) {
-                console.error(this.props.url, status, err.toString());
-            }.bind(this)
-        });
-    }
+        fetch(this.props.deleteUrl + this.props.movie._id, {
+            method: 'DELETE',
+        })
+        .catch((error) => console.error(error));
+     }
 
     renderStars(){
         if (this.props.movie.stars && this.props.movie.stars.length>0){

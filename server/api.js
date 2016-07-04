@@ -97,7 +97,7 @@ module.exports = function(wagner) {
         }
     }));
     
-    api.post('/movies/upload',function(req,res){
+    api.post('/movies/upload/',function(req,res){
         upload(req,res,function(err) {
             if(err) {
                 return res.end("Error uploading file.");

@@ -119,7 +119,7 @@ export default class MoviesList extends React.Component{
                 })}
             </select>
             {this.renderMovies()}
-            <FileUpload/>
+            <FileUpload fileUploadUrl = {this.props.fileUploadUrl}/>
         </div>
     }
 }

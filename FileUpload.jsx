@@ -5,25 +5,19 @@ import ReactDOM from 'react-dom';
 export default class FileUpload extends React.Component{
 
     uploadFile(e) {
-        e.preventDefault()
+        e.preventDefault();
         console.log(ReactDOM.findDOMNode(this.refs.file));
-        var fd = new FormData();
-        fd.append( 'moviesFile', ReactDOM.findDOMNode(this.refs.file).files[0] );
+        var fileData = new FormData();
+        fileData.append( 'moviesFile', ReactDOM.findDOMNode(this.refs.file).files[0] );
+        
+        //data.append('user', 'hubot')
 
-        $.ajax({
-            url: 'https://react-movies-uapasha-c9.c9users.io/api/v1/movies/upload',
-            data: fd,
-            processData: false,
-            contentType: false,
-            type: 'POST',
-            success: function(data){
-                alert(data);
-            }.bind(this),
-            error: function(xhr, status, err) {
-                console.error(this.props.url, status, err.toString());
-            }.bind(this)
-        });
-
+        fetch(this.props.fileUploadUrl, {
+            method: 'POST',
+            body: fileData
+        }).then(function(data){
+                    alert(data)
+        }).catch((error) => console.error(error));
     }
 
     render(){
