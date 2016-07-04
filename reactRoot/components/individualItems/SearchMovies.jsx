@@ -19,7 +19,8 @@ export default class SearchMovies extends React.Component{
     reRender(movieId){
         let newData = this.state.data.filter((movie)=> movie._id != movieId);
         this.setState({
-            data: newData
+            data: newData,
+            found: true
         })
     }
 
@@ -28,10 +29,18 @@ export default class SearchMovies extends React.Component{
         fetch(url)
             .then((response) => response.json())
             .then((responseData) => {
-                console.log(responseData);
-                this.setState({
-                    data: responseData,
-                });
+                if (responseData.movies.length === 0){
+
+                    this.setState({
+                        found: false
+                    });
+
+                } else {
+                    this.setState({
+                        data: responseData,
+                        found: true
+                    });
+                }
             })
             .catch((error) => console.error(error));
 
@@ -64,6 +73,7 @@ export default class SearchMovies extends React.Component{
                                 this.state.data.movies : 
                                 this.state.data}
                             search={true}/>
+                <p className="message">{this.state.found ? '' : "Nothing found"}</p>
             </div>
         );
     }
