@@ -10,7 +10,14 @@ var storage =   multer.diskStorage({
     callback(null, file.fieldname + '-' + Date.now());
   }
 });
-var upload = multer({ storage : storage}).single('moviesFile');
+var limitOptions = {limits: {
+  fieldNameSize: 100,
+  files: 1,
+  fields: 5,
+  fileSize: 1000000
+}}
+var upload = multer({ storage : storage}, limitOptions).single('moviesFile');
+
 
 
 var findAllMovies = function(Movie, res){

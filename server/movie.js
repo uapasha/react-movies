@@ -1,7 +1,7 @@
 var mongoose = require("mongoose");
 
 var movieSchema = {
-    title: {type: String, required: true},
+    title: {type: String, unique : true, required : true, dropDups: true},
     year: {type: Number},
     format: {type: String},
     stars: [String]
@@ -9,10 +9,10 @@ var movieSchema = {
 
 var schema = new mongoose.Schema(movieSchema);
 
-// schema.index({
-//     title: 'text', 
-//     stars:'text'
-// });
+schema.index({
+    title: 'text', 
+    stars:'text'
+});
 
 module.exports = schema;
 module.exports.movieSchema = movieSchema;
