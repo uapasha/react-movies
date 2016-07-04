@@ -33,6 +33,16 @@ Movie.remove({}, function (error) {
     });
 
 var populate = function () {
+    
+    // Movie.collection.insert(data, onInsert);
+
+    // function onInsert(err, docs) {
+    //     if (err) {
+    //         console.error(err)
+    //     } else {
+    //         console.info('%d potatoes were successfully stored.', docs.length);
+    //     }
+    // }
     data.forEach((movie) => {
         // filter out empty objects that results from empty spaces
         // TODO improve parser to deal with empty spaces without creating empty objects
@@ -45,7 +55,8 @@ var populate = function () {
         }
 
     });
-    showMovies();
+    // very bad idea.. 
+    setTimeout(function() {showMovies()}, 100);
 };
 
 var showMovies = function () {
@@ -59,7 +70,7 @@ var showMovies = function () {
             //     console.log(JSON.stringify(movie))
             // });
             console.log('successfully imported '+ docs.length + 'movies');
-            process.exit(0)
+            process.exit(0);
         })
 };
 
