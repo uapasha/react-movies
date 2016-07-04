@@ -1,5 +1,8 @@
 import React from 'react';
 
+
+const submitUrl="http://localhost:3000/api/v1/movies/";
+
 export default class MovieForm extends React.Component{
     constructor(props){
         super(props);
@@ -25,6 +28,20 @@ export default class MovieForm extends React.Component{
             stars: newStars,
             newStar: ''
         });
+    }
+
+    handleMovieSubmit(movie) {
+        fetch(submitUrl, {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(movie)
+        })
+            .catch((error) => console.error(error));
+
+        //TODO optimistic updates ??
     }
 
     handleTitleChange(e){
@@ -57,7 +74,7 @@ export default class MovieForm extends React.Component{
         let format = this.state.format.trim();
         let stars = this.state.stars;
         let movie = {title: title, year: year, format: format, stars: stars};
-        this.props.onMovieSubmit(movie);
+        this.handleMovieSubmit(movie);
         this.setState({
             title: '',
             year: '2016',

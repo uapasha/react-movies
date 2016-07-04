@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
+const fileUploadUrl="http://localhost:3000/api/v1/movies/upload/";
 
 export default class FileUpload extends React.Component{
 
@@ -12,7 +13,7 @@ export default class FileUpload extends React.Component{
         
         //data.append('user', 'hubot')
 
-        fetch(this.props.fileUploadUrl, {
+        fetch(fileUploadUrl, {
             method: 'POST',
             body: fileData
         }).then(function(data){

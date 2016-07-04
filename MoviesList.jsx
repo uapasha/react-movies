@@ -1,6 +1,7 @@
 import React from 'react';
 import Movie from './Movie.jsx';
-import FileUpload from './FileUpload.jsx'
+
+
 
 export default class MoviesList extends React.Component{
     constructor(props){
@@ -119,7 +120,6 @@ export default class MoviesList extends React.Component{
                 })}
             </select>
             {this.renderMovies()}
-            <FileUpload fileUploadUrl = {this.props.fileUploadUrl}/>
         </div>
     }
 }

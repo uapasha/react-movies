@@ -1,5 +1,7 @@
 import React from 'react';
 
+const  deleteUrl="http://localhost:3000/api/v1/movies/delete/";
+
 export default class Movie extends React.Component{
     constructor(props){
         super(props);
@@ -8,7 +10,7 @@ export default class Movie extends React.Component{
 
     handleMovieRemove(){
 
-        fetch(this.props.deleteUrl + this.props.movie._id, {
+        fetch(deleteUrl + this.props.movie._id, {
             method: 'DELETE',
         })
         .catch((error) => console.error(error));

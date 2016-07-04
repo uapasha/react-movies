@@ -1,5 +1,6 @@
+var path = require('path')
 module.exports = {
-    entry: ['whatwg-fetch', './index.jsx'],
+    entry: ['whatwg-fetch', path.join(__dirname, '', 'index.jsx')],
 
     // output: {
     //
