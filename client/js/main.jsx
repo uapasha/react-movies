@@ -380,8 +380,15 @@ class MovieForm extends React.Component{
 ////// Render ////////////
 
 ReactDOM.render(
-<MoviesBox url="http://localhost:3000/api/v1/movies/page/" 
-           submitUrl="http://localhost:3000/api/v1/movies/" 
-           deleteUrl="http://localhost:3000/api/v1/movies/delete/"/>,
+<MoviesBox url="https://react-movies-uapasha-c9.c9users.io/api/v1/movies/page/" 
+          submitUrl="https://react-movies-uapasha-c9.c9users.io/api/v1/movies/" 
+          deleteUrl="https://react-movies-uapasha-c9.c9users.io/api/v1/movies/delete/"/>,
     document.getElementById('content')
 );
+
+// ReactDOM.render(
+// <MoviesBox url="http://localhost:3000/api/v1/movies/page/" 
+//           submitUrl="http://localhost:3000/api/v1/movies/" 
+//           deleteUrl="http://localhost:3000/api/v1/movies/delete/"/>,
+//     document.getElementById('content')
+// );

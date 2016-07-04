@@ -46,6 +46,26 @@ module.exports = function(wagner) {
             findPageMovies(Movie, res, page);
         };
     }));
+    
+    ///// search api /////
+    api.get('/movies/search/:query', wagner.invoke(function(Movie) {
+        return function(req, res){
+            Movie
+                .find(
+                    { $text: {$search: req.params.query}},
+                    {score: {$meta:'textScore'}})
+                .sort({score: {$meta: 'textScore'}})
+                .limit(10)
+                .exec(function(error, movies){
+                    if (error){
+                        return res
+                            .status(status.INTERNAL_SERVER_ERROR)
+                            .json({error: error.toString()});
+                    }
+                    res.json({movies: movies})
+                })
+        }
+    }))
 
     api.post('/movies/', wagner.invoke(function (Movie) {
         return function (req, res) {

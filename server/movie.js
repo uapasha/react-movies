@@ -8,6 +8,6 @@ var movieSchema = {
 };
 
 var schema = new mongoose.Schema(movieSchema);
-
+schema.index({title: 'text'})
 module.exports = schema;
 module.exports.movieSchema = movieSchema;
