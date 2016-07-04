@@ -1,6 +1,7 @@
 var express = require("express");
 var wagner = require("wagner-core");
 var bodyParser = require('body-parser');
+var path = require('path');
 
 
 require("./models")(wagner);
@@ -9,6 +10,7 @@ var app = express();
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
+app.use(express.static(path.join(__dirname, '../', 'client')));
 
 // Additional middleware which will set headers that we need on each request.
 app.use(function(req, res, next) {
@@ -23,10 +25,12 @@ app.use(function(req, res, next) {
 });
 app.use('/api/v1', require("./api")(wagner));
 
-// app.listen(3000);
-// console.log('Listening on port 3000!');
+app.use('', require("./homepage")());
 
-app.listen(process.env.PORT || 3000, process.env.IP || "0.0.0.0", function(){
-  //var addr = app.address();
-  //console.log("Chat server listening at", addr.address + ":" + addr.port);
-});
+app.listen(3000);
+console.log('Listening on port 3000!');
+//
+// app.listen(process.env.PORT || 3000, process.env.IP || "0.0.0.0", function(){
+//   //var addr = app.address();
+//   //console.log("Chat server listening at", addr.address + ":" + addr.port);
+// });
