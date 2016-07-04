@@ -9,10 +9,11 @@ export default class MoviesBox extends React.Component{
         return (
             <div className="moviesBox">
                 <ul role="nav">
-                    <li><Link to="/" activeClassName="active">>Home</Link></li>
-                    <li><NavLink to="/new" activeClassName="active">>New Movie</NavLink></li>
-                    <li><NavLink to="/upload" activeClassName="active">>Upload file with movies</NavLink></li>
-                    <li><NavLink to="/movies" activeClassName="active">>Movies</NavLink></li>
+                    <li><Link to="/">Home</Link></li>
+                    <li><NavLink to="/new">New Movie</NavLink></li>
+                    <li><NavLink to="/upload">Upload file with movies</NavLink></li>
+                    <li><NavLink to="/movies">Movies</NavLink></li>
+                    <li><NavLink to="/search">Search Movies</NavLink></li>
                 </ul>
                 {this.props.children}
             </div>

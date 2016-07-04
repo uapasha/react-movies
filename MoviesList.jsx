@@ -6,6 +6,7 @@ import Movie from './Movie.jsx';
 export default class MoviesList extends React.Component{
     constructor(props){
         super(props);
+
         this.state = {
             sortDirection: 'asc',
             sortDirectionMethods: ["asc", "desc"],
@@ -13,6 +14,7 @@ export default class MoviesList extends React.Component{
             sortByMethods: ['year', 'title', 'format'],
             data: this.props.data
         };
+
         this.handleSortByChange = this.handleSortByChange.bind(this);
         this.handleSortDirectionMethods = this.handleSortDirectionMethods.bind(this);
     }
@@ -21,6 +23,7 @@ export default class MoviesList extends React.Component{
         this.setState({
             data: nextProps.data
         });
+
         this.sort(nextProps)
     }
 
@@ -29,6 +32,7 @@ export default class MoviesList extends React.Component{
         this.setState({
             sortBy: e.target.value
         });
+
         this.sort(null, e.target.value);
 
     }
@@ -38,6 +42,7 @@ export default class MoviesList extends React.Component{
         this.setState({
             sortDirection: e.target.value,
         });
+
         this.sort();
 
     }
@@ -86,6 +91,7 @@ export default class MoviesList extends React.Component{
             this.setState({
                 data: nextProps.data.sort(this.state.sortDirection === 'asc' ? sortAsc: sortDesc),
             });
+
         } else {
             this.setState({
                 data: this.state.data.sort(this.state.sortDirection === 'asc' ? sortDesc: sortAsc),
@@ -95,9 +101,18 @@ export default class MoviesList extends React.Component{
     }
 
     renderMovies(){
-        if (this.state.data.length === 0) return <p className = 'message'>Movies are loading</p>;
+        if (this.state.data.length === 0) {
+
+            return <p className = 'message'>
+                {this.props.search ?
+                    'Here will go the search results' :
+                    'Movies are loading'}
+            </p>}
+
         return this.state.data.map((movie)=>{
-            return<Movie movie = {movie} key={movie._id} deleteUrl = {this.props.deleteUrl}>
+            return<Movie reRender={this.props.reRender}
+                         movie = {movie} key={movie._id}
+                         deleteUrl = {this.props.deleteUrl}>
             </Movie>
         })
     }
@@ -105,19 +120,25 @@ export default class MoviesList extends React.Component{
     render(){
         return <div className="moviesList">
             <select name="changeSortBy" onChange={this.handleSortByChange} value={this.state.sortBy}>
-                {this.state.sortByMethods.map((method)=>{
+
+                {this.state.sortByMethods.map(( method ) => {
+
                     return<option key={"select" + method} value={method}>
                         {method.charAt(0).toUpperCase() + method.substring(1).toLowerCase()}
                     </option>
                 })}
+
             </select>
             <select name="changeSortBy" onChange={this.handleSortDirectionMethods}
                     value={this.state.sortDirection}>
-                {this.state.sortDirectionMethods.map((method)=>{
+
+                {this.state.sortDirectionMethods.map((method) => {
+
                     return<option key={"select" + method} value={method}>
                         {method=='asc' ? "Ascending" : "Descending"}
                     </option>
                 })}
+
             </select>
             {this.renderMovies()}
         </div>

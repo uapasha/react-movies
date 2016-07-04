@@ -13,6 +13,7 @@ export default class Movie extends React.Component{
         fetch(deleteUrl + this.props.movie._id, {
             method: 'DELETE',
         })
+        .then(this.props.reRender(this.props.movie._id))
         .catch((error) => console.error(error));
      }
 

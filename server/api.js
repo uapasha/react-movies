@@ -37,7 +37,7 @@ var findAllMovies = function(Movie, res){
 var findPageMovies = function(Movie, res, page){
     Movie
         .find({})
-        .sort({year: 1})
+        .sort({title: 1})
         .skip((page-1)*20)
         .limit(page*20)
         .exec(function(error, movies){

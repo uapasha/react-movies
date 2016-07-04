@@ -14,6 +14,14 @@ export default class MoviesLogic extends React.Component{
         };
     }
 
+    //render movies based on deletion feedback
+    reRender(movieId){
+        let newData = this.state.data.filter((movie)=> movie._id != movieId);
+        this.setState({
+            data: newData
+        })
+    }
+
     fetchData() {
         const url = getPageUrl + this.state.page + '/';
         fetch(url)
@@ -43,12 +51,13 @@ export default class MoviesLogic extends React.Component{
     render() {
         return (
             <div>
-                <MoviesList data={this.state.data.movies ? this.state.data.movies : this.state.data}/>
+                <MoviesList reRender={this.reRender.bind(this)}
+                            data={this.state.data.movies ?
+                                this.state.data.movies :
+                                this.state.data}/>
                 {this.state.noMoreMovies ?
                     <p className="message">No more movies to load</p> :
                     <button onClick={this.fetchData.bind(this)}>Load More</button>}
-                <ul role="nav">
-                </ul>
             </div>
         );
     }
