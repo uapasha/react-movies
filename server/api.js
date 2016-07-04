@@ -10,7 +10,7 @@ var storage =   multer.diskStorage({
     callback(null, file.fieldname + '-' + Date.now());
   }
 });
-var upload = multer({ storage : storage}).single('userPhoto');
+var upload = multer({ storage : storage}).single('moviesFile');
 
 
 var findAllMovies = function(Movie, res){
@@ -90,13 +90,13 @@ module.exports = function(wagner) {
         }
     }));
     
-    api.post('/api/upload',function(req,res){
-    upload(req,res,function(err) {
-        if(err) {
-            return res.end("Error uploading file.");
-        }
-        res.end("File is uploaded");
-    });
+    api.post('/movies/upload',function(req,res){
+        upload(req,res,function(err) {
+            if(err) {
+                return res.end("Error uploading file.");
+            }
+            res.end("File is uploaded");
+        });
     });
 
 
