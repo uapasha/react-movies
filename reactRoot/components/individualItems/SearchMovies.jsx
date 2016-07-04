@@ -1,6 +1,6 @@
 import React from 'react';
 
-import MoviesList from './MoviesList.jsx';
+import MoviesList from '../MoviesList.jsx';
 
 const searchUrl="http://localhost:3000/api/v1/movies/search/";
 

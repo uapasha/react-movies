@@ -1,6 +1,6 @@
 var path = require('path')
 module.exports = {
-    entry: ['whatwg-fetch', path.join(__dirname, '', 'index.jsx')],
+    entry: ['whatwg-fetch', path.join(__dirname, './reactRoot', 'index.jsx')],
 
     // output: {
     //
@@ -8,7 +8,7 @@ module.exports = {
     //     publicPath: './'
     // },
     output: {
-        path: __dirname,
+        path: path.join(__dirname, './client/js'),
         filename: 'bundle.js'
     },
 
