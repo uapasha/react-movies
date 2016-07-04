@@ -1,5 +1,17 @@
 var express = require("express");
 var status = require("http-status");
+var multer  =   require('multer');
+
+var storage =   multer.diskStorage({
+  destination: function (req, file, callback) {
+    callback(null, './uploads');
+  },
+  filename: function (req, file, callback) {
+    callback(null, file.fieldname + '-' + Date.now());
+  }
+});
+var upload = multer({ storage : storage}).single('userPhoto');
+
 
 var findAllMovies = function(Movie, res){
     Movie
@@ -52,8 +64,8 @@ module.exports = function(wagner) {
         return function(req, res){
             Movie
                 .find(
-                    { $text: {$search: req.params.query}},
-                    {score: {$meta:'textScore'}})
+                    { $text: { $search: req.params.query}},
+                    { score: { $meta:'textScore'}})
                 .sort({score: {$meta: 'textScore'}})
                 .limit(10)
                 .exec(function(error, movies){
@@ -77,6 +89,16 @@ module.exports = function(wagner) {
             findAllMovies(Movie, res);
         }
     }));
+    
+    api.post('/api/upload',function(req,res){
+    upload(req,res,function(err) {
+        if(err) {
+            return res.end("Error uploading file.");
+        }
+        res.end("File is uploaded");
+    });
+    });
+
 
     api.delete('/movies/delete/:id', wagner.invoke(function (Movie) {
         return function (req, res) {
