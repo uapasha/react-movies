@@ -23,5 +23,10 @@ app.use(function(req, res, next) {
 });
 app.use('/api/v1', require("./api")(wagner));
 
-app.listen(3000);
-console.log('Listening on port 3000!');
+// app.listen(3000);
+// console.log('Listening on port 3000!');
+
+app.listen(process.env.PORT || 3000, process.env.IP || "0.0.0.0", function(){
+  //var addr = app.address();
+  //console.log("Chat server listening at", addr.address + ":" + addr.port);
+});

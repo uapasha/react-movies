@@ -36,7 +36,7 @@ module.exports = function(wagner) {
 
     api.get('/movies/', wagner.invoke(function(Movie) {
         return function(req, res){
-            findAllMovies(Movie, res, page);
+            findAllMovies(Movie, res);
         };
     }));
 
