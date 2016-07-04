@@ -192,6 +192,7 @@ class MoviesList extends React.Component{
                 })}
             </select>
             {this.renderMovies()}
+            <FileUpload/>
         </div>
     }
 }
@@ -260,6 +261,23 @@ class Movie extends React.Component{
             {this.renderStars()}
             <button onClick={this.handleMovieRemove}>Remove movie</button>
         </div>
+    }
+}
+
+
+////// File upload form ///////
+class FileUpload extends React.Component{
+render(){
+    return<fieldset>
+        <legend>Upload File</legend>
+        <form id="uploadForm"
+             encType="multipart/form-data"
+             action="https://react-movies-uapasha-c9.c9users.io/api/v1/movies/upload"
+             method="post">
+                <input type="file" name="moviesFile" />
+                <input type="submit" value="Upload File" name="submit"/>
+        </form>
+    </fieldset>
     }
 }
 
