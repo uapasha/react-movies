@@ -1,13 +1,14 @@
 # Movies catalog with ReactJS, MongoDB and NodeJS
 
 ### To run:
-1. npm install
-2. Create folder for MongoDB data: ./data
-3. Launch mongo server: 
+1. install mongodb
+2. run: npm install
+3. Create folder for MongoDB data: ./data
+4. Launch mongo server: 
   - on Windows: mongod --dbpath %cd%\data\db
   - on c9.io Linux: mongod --bind_ip=$IP --dbpath=data --nojournal --rest "$@"
-4. Load dummy content: npm run loadData
-5. Build source: npm run webpack
-6. Start server: node server/index.js
-7. Go to: http://localhost:3000
-8. Enjoy!
+5. Load dummy content: npm run loadData
+6. Build source: npm run webpack
+7. Start server: node server/index.js
+8. Go to: http://localhost:3000
+9. Enjoy!
