@@ -42,7 +42,7 @@ var populate = function () {
     // very bad idea.. 
     setTimeout(function () {
         showMovies()
-    }, 100);
+    }, 400);
 };
 
 var showMovies = function () {
