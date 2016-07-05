@@ -60,29 +60,29 @@ export default class MoviesList extends React.Component{
                 break;
             case "format":
                 sortAsc  = function(a, b){
-                    if(a.format > b.format){
+                    if(a.format.toLowerCase() > b.format.toLowerCase()){
                         return 1
-                    } else if(a.format < b.format) {
+                    } else if(a.format.toLowerCase() < b.format.toLowerCase()) {
                         return -1
                     } else return 0};
                 sortDesc = function(a, b){
-                    if(a.format < b.format){
+                    if(a.format.toLowerCase() < b.format.toLowerCase()){
                         return 1
-                    } else if(a.format > b.format) {
+                    } else if(a.format.toLowerCase() > b.format.toLowerCase()) {
                         return -1
                     } else return 0};
                 break;
             default:
                 sortAsc  = function(a, b){
-                    if(a.title > b.title){
+                    if(a.title.toLowerCase() > b.title.toLowerCase()){
                         return 1
-                    } else if(a.title < b.title) {
+                    } else if(a.title.toLowerCase() < b.title.toLowerCase()) {
                         return -1
                     } else return 0};
                 sortDesc = function(a, b){
-                    if(a.title < b.title){
+                    if(a.title.toLowerCase() < b.title.toLowerCase()){
                         return 1
-                    } else if(a.title > b.title) {
+                    } else if(a.title.toLowerCase() > b.title.toLowerCase()) {
                         return -1
                     } else return 0};
         }
