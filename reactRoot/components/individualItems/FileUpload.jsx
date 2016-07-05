@@ -5,12 +5,12 @@ import ReactDOM from 'react-dom';
 const fileUploadUrl="https://react-movies-uapasha-c9.c9users.io/api/v1/movies/upload/";
 
 export default class FileUpload extends React.Component{
-
+    
+    // TODO change notification avout file upload.
     constructor(props){
         super(props);
         this.state = {
-            uploadSuccessful: false,
-            numUploaded: 0,
+            uploadSuccessful: false
         }
     }
 
@@ -30,14 +30,14 @@ export default class FileUpload extends React.Component{
             method: 'POST',
             body: fileData
         })
-        // .then((response) => response.json()
-        // )
+        .then((response) => response.json()
+        )
         .then((result) => {
-            console.log(result.numSaved)
-            this.setState({
-                uploadSuccessful: true,
-                numUploaded: result.numSaved
-            })
+            if (result.fail !== true){
+                this.setState({
+                    uploadSuccessful: true,
+                })
+            }
         })
         .catch((error) => console.error(error));
     }
@@ -48,12 +48,14 @@ export default class FileUpload extends React.Component{
             <form ref="uploadForm"
                   encType="multipart/form-data"
                   onSubmit={this.uploadFile.bind(this)}>
-                <input ref="file" type="file" name="moviesFile" className="upload-file"/>
+                <input ref="file" 
+                        type="file" 
+                        name="moviesFile" 
+                        className="upload-file"
+                        accept='.txt'/>
                 <input type="submit" value="Upload File" name="submit"/>
             </form>
             <p className="message">{this.state.uploadSuccessful ? 'File uploaded' : ''}</p>
-            <p className="message">{this.state.uploadSuccessful && this.state.numUploaded ? 
-                this.state.numUploaded + ' movies were added to database' : ''}</p>
         </fieldset>
     }
 }

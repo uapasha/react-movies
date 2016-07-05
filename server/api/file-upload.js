@@ -19,5 +19,16 @@ var limitOptions = {
         fileSize: 1000000
     }
 };
-var upload = multer({storage: storage}, limitOptions).single('moviesFile');
+
+var upload = multer({
+    storage: storage, 
+    limitOptions, 
+    fileFilter: function (req, file, cb) {
+            if (path.extname(file.originalname) !== '.txt') {
+                return cb(new Error('Only .txt is allowed'))
+            }
+            cb(null, true)
+        }
+    }).single('moviesFile');
+
 module.exports = upload;

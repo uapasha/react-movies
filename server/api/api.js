@@ -88,14 +88,15 @@ module.exports = function (wagner) {
                 upload(req, res, function (err) {
                     
                     if (err) {
+                        res.json({fail: true});
                         return res.end("Error uploading file.");
                     }
-                    //var imported = {}
+
                     var file = req.file;
-                    // import movies data and get number of imported movies
+ 
                     populate(file.path, Movie);
-                    // console.log(imported);
-                    // res.json(imported);
+
+                    res.json({fail: false});
                     res.end("File is uploaded");
             });
         };

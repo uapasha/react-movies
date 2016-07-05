@@ -10,6 +10,7 @@ var app = express();
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
+
 app.use(express.static(path.join(__dirname, '../', 'client')));
 
 // Additional middleware which will set headers that we need on each request.
