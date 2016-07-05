@@ -101,11 +101,7 @@ export default class MoviesList extends React.Component{
     renderMovies(){
         if (this.state.data.length === 0) {
 
-            return <p className = 'message'>
-                {this.props.search ?
-                    'Here will go the search results' :
-                    'Movies are loading'}
-            </p>}
+            return <div></div>}
 
         return this.state.data.map((movie)=>{
             return<Movie reRender={this.props.reRender}
