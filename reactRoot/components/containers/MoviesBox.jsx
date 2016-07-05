@@ -8,6 +8,7 @@ export default class MoviesBox extends React.Component {
         return (
             <div className="moviesBox">
                 <ul role="nav">
+                    <li><NavLink to="/home">Home</NavLink></li>
                     <li><NavLink to="/movies">Movies</NavLink></li>
                     <li><NavLink to="/search">Search Movies</NavLink></li>
                     <li><NavLink to="/new">New Movie</NavLink></li>

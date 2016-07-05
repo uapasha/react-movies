@@ -65,6 +65,7 @@ export default class SearchMovies extends React.Component {
     render() {
         return (
             <div>
+                <h2>Search for a movie</h2>
                 <form className="movieSearch" onSubmit={this.handleSubmit}>
                     <input type="text" placeholder="Enter movie title or name of the Star"
                            value={this.state.query} onChange={this.handleQueryChange}/>

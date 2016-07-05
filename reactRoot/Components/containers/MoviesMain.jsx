@@ -5,7 +5,7 @@ import MoviesList from './MoviesList.jsx';
 const getPageUrl = "http://localhost:3000/api/v1/movies/page/";
 //const getPageUrl="https://react-movies-uapasha-c9.c9users.io/api/v1/movies/page/";
 
-export default class MoviesLogic extends React.Component {
+export default class MoviesMain extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -52,6 +52,7 @@ export default class MoviesLogic extends React.Component {
     render() {
         return (
             <div>
+                <h2>Browse movies</h2>
                 <MoviesList reRender={this.reRender.bind(this)}
                             data={this.state.data.movies ?
                                 this.state.data.movies :

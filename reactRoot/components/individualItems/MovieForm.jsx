@@ -88,6 +88,12 @@ export default class MovieForm extends React.Component{
     renderAddStars(){
         let numForKey = 0;
         return <div className="newMovieStars">
+            <input
+                type="text"
+                placeholder="Enter new star name"
+                onChange={this.handleStarChange}
+                value={this.state.newStar}/>
+            <button onClick={this.addStar}>Add star</button>
             {this.state.stars.length === 0 ? <p className="message">No stars added</p> : <h2>Stars Added:</h2>}
             {this.state.stars.map((star)=> {
                 numForKey += 1;
@@ -96,19 +102,14 @@ export default class MovieForm extends React.Component{
                 </div>
             })
             }
-            <input
-                type="text"
-                placeholder="Enter new star name"
-                onChange={this.handleStarChange}
-                value={this.state.newStar}/>
-            <button onClick={this.addStar}>Add star</button>
         </div>
     }
 
     render(){
         return<form className="movieForm" onSubmit={this.handleSubmit}>
+            <h2>Add information about a movie</h2>
             <input type="text"
-                   placeholder="New Movie name"
+                   placeholder="Enter movie name"
                    required
                    value={this.state.title}
                    onChange={this.handleTitleChange}/>

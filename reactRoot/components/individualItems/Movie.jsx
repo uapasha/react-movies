@@ -1,6 +1,6 @@
 import React from 'react';
 
-const  deleteUrl="/api/v1/movies/delete/";
+const deleteUrl = "/api/v1/movies/delete/";
 //const deleteUrl = "https://react-movies-uapasha-c9.c9users.io/api/v1/movies/delete/";
 
 export default class Movie extends React.Component {
@@ -86,7 +86,5 @@ export default class Movie extends React.Component {
         return this.state.showMore ?
             this.renderMoreData() :
             this.renderShortDescription()
-
-
     }
 }
