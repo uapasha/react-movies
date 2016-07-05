@@ -2,13 +2,14 @@
 
 ### To run:
 1. install mongodb
-2. run: npm install
-3. Create folder for MongoDB data: ./data
-4. Launch mongo server: 
+2. You should use node 6.1.0 to be safe
+3. run: npm install
+4. Create folder for MongoDB data: ./data
+5. Launch mongo server: 
   - on Windows: mongod --dbpath %cd%\data\db
   - on c9.io Linux: mongod --bind_ip=$IP --dbpath=data --nojournal --rest "$@"
-5. Load dummy content: npm run loadData
-6. Build source: npm run webpack
-7. Start server: node server/index.js
-8. Go to: http://localhost:3000
-9. Enjoy!
+6. Load dummy content: npm run loadData
+7. Build source: npm run webpack
+8. Start server: node server/index.js
+9. Go to: http://localhost:3000
+10. Enjoy!
