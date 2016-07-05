@@ -34,7 +34,7 @@ export default class Movie extends React.Component{
                 {this.props.movie.title}
             </h2>
 
-            <button onClick={this.handleShowMore}>ShowMore</button>
+            <button onClick={this.handleShowMore}>Show Info</button>
         </div>
     }
     renderMoreData(){

@@ -1,8 +1,6 @@
 import React from 'react';
 import Movie from '../individualItems/Movie.jsx';
 
-
-
 export default class MoviesList extends React.Component{
     constructor(props){
         super(props);
@@ -119,27 +117,30 @@ export default class MoviesList extends React.Component{
 
     render(){
         return <div className="moviesList">
-            <select name="changeSortBy" onChange={this.handleSortByChange} value={this.state.sortBy}>
-
-                {this.state.sortByMethods.map(( method ) => {
-
-                    return<option key={"select" + method} value={method}>
-                        {method.charAt(0).toUpperCase() + method.substring(1).toLowerCase()}
-                    </option>
-                })}
-
-            </select>
-            <select name="changeSortBy" onChange={this.handleSortDirectionMethods}
-                    value={this.state.sortDirection}>
-
-                {this.state.sortDirectionMethods.map((method) => {
-
-                    return<option key={"select" + method} value={method}>
-                        {method=='asc' ? "Ascending" : "Descending"}
-                    </option>
-                })}
-
-            </select>
+            <div className='sortInput'>
+                <h2>Sort movies</h2>
+                <select name="changeSortBy" onChange={this.handleSortByChange} value={this.state.sortBy}>
+    
+                    {this.state.sortByMethods.map(( method ) => {
+    
+                        return<option key={"select" + method} value={method}>
+                            {method.charAt(0).toUpperCase() + method.substring(1).toLowerCase()}
+                        </option>
+                    })}
+    
+                </select>
+                <select name="changeSortBy" onChange={this.handleSortDirectionMethods}
+                        value={this.state.sortDirection}>
+    
+                    {this.state.sortDirectionMethods.map((method) => {
+    
+                        return<option key={"select" + method} value={method}>
+                            {method=='asc' ? "Ascending" : "Descending"}
+                        </option>
+                    })}
+    
+                </select>
+            </div>
             {this.renderMovies()}
         </div>
     }

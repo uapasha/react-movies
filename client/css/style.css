@@ -3,9 +3,6 @@ body {
     margin: auto;
 }
 
-.active {
-    color: green;
-}
 
 ul[role=nav]{
     display: flex;
@@ -14,4 +11,39 @@ ul[role=nav]{
 ul[role=nav] > li{
     flex: auto;
     list-style-type: none;
+}
+
+.active {
+    color: green;
+}
+
+.moviesList{
+    display: flex;
+    flex-wrap: wrap;
+    text-align: center;
+}
+
+.sortInput{
+    flex:1 100%;
+    
+}
+.movie {
+    flex:1 45%;
+    margin: 10px;
+
+}
+
+.movieStars{
+    list-style-type: none;
+    padding: 0;
+}
+
+.message{
+    padding: 10px;
+    margin: 10px auto;
+    text-align: center;
+    color: red;
+    border: 1px solid green;
+    border-radius: 5px;
+    
 }

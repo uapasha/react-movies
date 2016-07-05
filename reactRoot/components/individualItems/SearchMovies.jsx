@@ -75,7 +75,10 @@ export default class SearchMovies extends React.Component{
                                 this.state.data.movies : 
                                 this.state.data}
                             search={true}/>
-                <p className="message">{this.state.found ? '' : "Nothing found"}</p>
+                {this.state.found ? 
+                    '' :
+                    <p className="message">Nothing found</p>
+                }
             </div>
         );
     }
