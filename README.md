@@ -4,7 +4,7 @@
 1. npm install
 2. Create folder for MongoDB data: ./data
 3. Launch mongo server: 
-  - on Windows: mongod --dbpath C:\Users\uapasha\fullstack\react-movies\data\db
+  - on Windows: mongod --dbpath %cd%\data\db
   - on c9.io Linux: mongod --bind_ip=$IP --dbpath=data --nojournal --rest "$@"
 4. Load dummy content: npm run loadData
 5. Build source: npm run webpack
