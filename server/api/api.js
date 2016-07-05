@@ -84,20 +84,20 @@ module.exports = function (wagner) {
     }));
 
     api.post('/movies/upload/', wagner.invoke(function (Movie) {
-            return function (req, res) {
-                upload(req, res, function (err) {
-                    
-                    if (err) {
-                        res.json({fail: true});
-                        return res.end("Error uploading file.");
-                    }
+        return function (req, res) {
+            upload(req, res, function (err) {
 
-                    var file = req.file;
- 
-                    populate(file.path, Movie);
+                if (err) {
+                    res.json({fail: true});
+                    return res.end("Error uploading file.");
+                }
 
-                    res.json({fail: false});
-                    res.end("File is uploaded");
+                var file = req.file;
+
+                populate(file.path, Movie);
+
+                res.json({fail: false});
+                res.end("File is uploaded");
             });
         };
     }));

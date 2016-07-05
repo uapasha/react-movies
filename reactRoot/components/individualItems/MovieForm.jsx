@@ -1,8 +1,8 @@
 import React from 'react';
 
 
-//const submitUrl="/api/v1/movies/";
-const submitUrl="https://react-movies-uapasha-c9.c9users.io/api/v1/movies/";
+const submitUrl="/api/v1/movies/";
+//const submitUrl="https://react-movies-uapasha-c9.c9users.io/api/v1/movies/";
 
 export default class MovieForm extends React.Component{
     constructor(props){
@@ -112,7 +112,7 @@ export default class MovieForm extends React.Component{
                    required
                    value={this.state.title}
                    onChange={this.handleTitleChange}/>
-            <label>Add year
+            <label>Year
                 <input type="number"
                        name="year"
                        min="1896"

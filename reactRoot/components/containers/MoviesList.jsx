@@ -1,8 +1,8 @@
 import React from 'react';
 import Movie from '../individualItems/Movie.jsx';
 
-export default class MoviesList extends React.Component{
-    constructor(props){
+export default class MoviesList extends React.Component {
+    constructor(props) {
         super(props);
 
         this.state = {
@@ -25,7 +25,7 @@ export default class MoviesList extends React.Component{
         this.sort(nextProps)
     }
 
-    handleSortByChange(e){
+    handleSortByChange(e) {
 
         this.setState({
             sortBy: e.target.value
@@ -36,7 +36,7 @@ export default class MoviesList extends React.Component{
     }
 
 
-    handleSortDirectionMethods(e){
+    handleSortDirectionMethods(e) {
         this.setState({
             sortDirection: e.target.value,
         });
@@ -45,98 +45,104 @@ export default class MoviesList extends React.Component{
 
     }
 
-    sort(nextProps, sortBy){
+    sort(nextProps, sortBy) {
         var sortAsc, sortDesc;
         let sortCriterium = this.state.sortBy;
-        if (!!sortBy && sortCriterium !== sortBy){
-            sortCriterium =  sortBy;
+        if (!!sortBy && sortCriterium !== sortBy) {
+            sortCriterium = sortBy;
         }
-        switch (sortCriterium){
+        switch (sortCriterium) {
             case "year" :
-                sortAsc  = (a, b) => parseInt(a.year, 10) - parseInt(b.year, 10);
+                sortAsc = (a, b) => parseInt(a.year, 10) - parseInt(b.year, 10);
                 sortDesc = (a, b) => parseInt(b.year, 10) - parseInt(a.year, 10);
                 break;
             case "format":
-                sortAsc  = function(a, b){
-                    if(a.format.toLowerCase() > b.format.toLowerCase()){
+                sortAsc = function (a, b) {
+                    if (a.format.toLowerCase() > b.format.toLowerCase()) {
                         return 1
-                    } else if(a.format.toLowerCase() < b.format.toLowerCase()) {
+                    } else if (a.format.toLowerCase() < b.format.toLowerCase()) {
                         return -1
-                    } else return 0};
-                sortDesc = function(a, b){
-                    if(a.format.toLowerCase() < b.format.toLowerCase()){
+                    } else return 0
+                };
+                sortDesc = function (a, b) {
+                    if (a.format.toLowerCase() < b.format.toLowerCase()) {
                         return 1
-                    } else if(a.format.toLowerCase() > b.format.toLowerCase()) {
+                    } else if (a.format.toLowerCase() > b.format.toLowerCase()) {
                         return -1
-                    } else return 0};
+                    } else return 0
+                };
                 break;
             default:
-                sortAsc  = function(a, b){
-                    if(a.title.toLowerCase() > b.title.toLowerCase()){
+                sortAsc = function (a, b) {
+                    if (a.title.toLowerCase() > b.title.toLowerCase()) {
                         return 1
-                    } else if(a.title.toLowerCase() < b.title.toLowerCase()) {
+                    } else if (a.title.toLowerCase() < b.title.toLowerCase()) {
                         return -1
-                    } else return 0};
-                sortDesc = function(a, b){
-                    if(a.title.toLowerCase() < b.title.toLowerCase()){
+                    } else return 0
+                };
+                sortDesc = function (a, b) {
+                    if (a.title.toLowerCase() < b.title.toLowerCase()) {
                         return 1
-                    } else if(a.title.toLowerCase() > b.title.toLowerCase()) {
+                    } else if (a.title.toLowerCase() > b.title.toLowerCase()) {
                         return -1
-                    } else return 0};
+                    } else return 0
+                };
         }
 
-        if(!!nextProps){
+        if (!!nextProps) {
             this.setState({
-                data: nextProps.data.sort(this.state.sortDirection === 'asc' ? sortAsc: sortDesc),
+                data: nextProps.data.sort(this.state.sortDirection === 'asc' ? sortAsc : sortDesc),
             });
 
         } else {
             this.setState({
-                data: this.state.data.sort(this.state.sortDirection === 'asc' ? sortDesc: sortAsc),
+                data: this.state.data.sort(this.state.sortDirection === 'asc' ? sortDesc : sortAsc),
             })
         }
 
     }
 
-    renderMovies(){
+    renderMovies() {
         if (this.state.data.length === 0) {
 
-            return <div></div>}
+            return <div></div>
+        }
 
-        return this.state.data.map((movie)=>{
-            return<Movie reRender={this.props.reRender}
-                         movie = {movie} key={movie._id}
-                         deleteUrl = {this.props.deleteUrl}>
+        return this.state.data.map((movie)=> {
+            return <Movie reRender={this.props.reRender}
+                          movie={movie} key={movie._id}
+                          deleteUrl={this.props.deleteUrl}>
             </Movie>
         })
     }
 
-    render(){
+    render() {
         return <div className="moviesList">
             <div className='sortInput'>
-                <h2>Sort movies</h2>
+                <strong> Sort movies: </strong>
                 <select name="changeSortBy" onChange={this.handleSortByChange} value={this.state.sortBy}>
-    
-                    {this.state.sortByMethods.map(( method ) => {
-    
-                        return<option key={"select" + method} value={method}>
+
+                    {this.state.sortByMethods.map((method) => {
+
+                        return <option key={"select" + method} value={method}>
                             {method.charAt(0).toUpperCase() + method.substring(1).toLowerCase()}
                         </option>
                     })}
-    
+
                 </select>
                 <select name="changeSortBy" onChange={this.handleSortDirectionMethods}
                         value={this.state.sortDirection}>
-    
+
                     {this.state.sortDirectionMethods.map((method) => {
-    
-                        return<option key={"select" + method} value={method}>
-                            {method=='asc' ? "Ascending" : "Descending"}
+
+                        return <option key={"select" + method} value={method}>
+                            {method == 'asc' ? "Ascending" : "Descending"}
                         </option>
                     })}
-    
+
                 </select>
             </div>
+            <hr/>
             {this.renderMovies()}
         </div>
     }

@@ -1,6 +1,6 @@
 var fs = require('fs');
 
-var parser = function(filepath) {
+var parser = function (filepath) {
     var res = [{}];
 
     var num = 0;
@@ -28,8 +28,9 @@ var parser = function(filepath) {
                 break;
             default:
                 // avoid ':' in the title of the movie
-                var field = line.substring(0, line.indexOf(':')).toLowerCase();;
-                var value = line.substring(line.indexOf(':')+2);
+                var field = line.substring(0, line.indexOf(':')).toLowerCase();
+                ;
+                var value = line.substring(line.indexOf(':') + 2);
                 res[num][field] = value;
         }
     });

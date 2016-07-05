@@ -2,20 +2,21 @@ import React from 'react';
 
 import MoviesList from './MoviesList.jsx';
 
-//const getPageUrl="http://localhost:3000/api/v1/movies/page/";
-const getPageUrl="https://react-movies-uapasha-c9.c9users.io/api/v1/movies/page/";
-export default class MoviesLogic extends React.Component{
-    constructor(props){
+const getPageUrl = "http://localhost:3000/api/v1/movies/page/";
+//const getPageUrl="https://react-movies-uapasha-c9.c9users.io/api/v1/movies/page/";
+
+export default class MoviesLogic extends React.Component {
+    constructor(props) {
         super(props);
         this.state = {
             data: [],
-            page:1,
-            noMoreMovies:false
+            page: 1,
+            noMoreMovies: false
         };
     }
 
     //render movies based on deletion feedback
-    reRender(movieId){
+    reRender(movieId) {
         let newData = this.state.data.filter((movie)=> movie._id != movieId);
         this.setState({
             data: newData
@@ -28,7 +29,7 @@ export default class MoviesLogic extends React.Component{
             .then((response) => response.json())
             .then((responseData) => {
 
-                if (responseData.movies.length == 0 || responseData.movies.length < 20){
+                if (responseData.movies.length == 0 || responseData.movies.length < 20) {
                     this.setState({
                         noMoreMovies: true
                     })
@@ -37,14 +38,14 @@ export default class MoviesLogic extends React.Component{
 
                 this.setState({
                     data: allMovies,
-                    page:this.state.page + 1
+                    page: this.state.page + 1
                 });
             })
             .catch((error) => console.error(error));
 
     }
 
-    componentDidMount(){
+    componentDidMount() {
         this.fetchData()
     }
 
@@ -55,9 +56,11 @@ export default class MoviesLogic extends React.Component{
                             data={this.state.data.movies ?
                                 this.state.data.movies :
                                 this.state.data}/>
+                <hr/>
                 {this.state.noMoreMovies ?
                     <p className="message">No more movies to load</p> :
-                    <button onClick={this.fetchData.bind(this)}>Load More</button>}
+                    <button onClick={this.fetchData.bind(this)} className="loadMore">Load More</button>}
+                <hr/>
             </div>
         );
     }

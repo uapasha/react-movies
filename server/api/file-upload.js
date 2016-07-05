@@ -21,14 +21,14 @@ var limitOptions = {
 };
 
 var upload = multer({
-    storage: storage, 
-    limitOptions, 
+    storage: storage,
+    limitOptions,
     fileFilter: function (req, file, cb) {
-            if (path.extname(file.originalname) !== '.txt') {
-                return cb(new Error('Only .txt is allowed'))
-            }
-            cb(null, true)
+        if (path.extname(file.originalname) !== '.txt') {
+            return cb(new Error('Only .txt is allowed'))
         }
-    }).single('moviesFile');
+        cb(null, true)
+    }
+}).single('moviesFile');
 
 module.exports = upload;

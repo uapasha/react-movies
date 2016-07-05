@@ -2,11 +2,11 @@ import React from 'react';
 
 import MoviesList from '../containers/MoviesList.jsx';
 
-//const searchUrl="/api/v1/movies/search/";
-const searchUrl='https://react-movies-uapasha-c9.c9users.io/api/v1/movies/search/';
+const searchUrl = "/api/v1/movies/search/";
+//const searchUrl='https://react-movies-uapasha-c9.c9users.io/api/v1/movies/search/';
 
-export default class SearchMovies extends React.Component{
-    constructor(props){
+export default class SearchMovies extends React.Component {
+    constructor(props) {
         super(props);
         this.state = {
             data: [],
@@ -17,7 +17,7 @@ export default class SearchMovies extends React.Component{
     }
 
     //render movies based on deletion feedback
-    reRender(movieId){
+    reRender(movieId) {
         let newData = this.state.data.filter((movie)=> movie._id != movieId);
         this.setState({
             data: newData,
@@ -30,7 +30,7 @@ export default class SearchMovies extends React.Component{
         fetch(url)
             .then((response) => response.json())
             .then((responseData) => {
-                if (responseData.movies.length === 0){
+                if (responseData.movies.length === 0) {
 
                     this.setState({
                         data: responseData,
@@ -48,7 +48,7 @@ export default class SearchMovies extends React.Component{
 
     }
 
-    handleSubmit(e){
+    handleSubmit(e) {
         e.preventDefault();
         this.fetchData();
         this.setState({
@@ -56,7 +56,7 @@ export default class SearchMovies extends React.Component{
         });
     }
 
-    handleQueryChange(e){
+    handleQueryChange(e) {
         this.setState({
             query: e.target.value
         })
@@ -65,17 +65,17 @@ export default class SearchMovies extends React.Component{
     render() {
         return (
             <div>
-                <form className="movieForm" onSubmit={this.handleSubmit}>
+                <form className="movieSearch" onSubmit={this.handleSubmit}>
                     <input type="text" placeholder="Enter movie title or name of the Star"
                            value={this.state.query} onChange={this.handleQueryChange}/>
-                    <input type="submit" value="Search Movie by title or actor" />
+                    <input type="submit" value="Search Movie by title or actor"/>
                 </form>
-                <MoviesList reRender={this.reRender.bind(this)} 
+                <MoviesList reRender={this.reRender.bind(this)}
                             data={this.state.data.movies ? 
                                 this.state.data.movies : 
                                 this.state.data}
                             search={true}/>
-                {this.state.found ? 
+                {this.state.found ?
                     '' :
                     <p className="message">Nothing found</p>
                 }
