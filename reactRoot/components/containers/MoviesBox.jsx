@@ -9,7 +9,6 @@ export default class MoviesBox extends React.Component{
         return (
             <div className="moviesBox">
                 <ul role="nav">
-                    <li><Link to="/">Home</Link></li>
                     <li><NavLink to="/new">New Movie</NavLink></li>
                     <li><NavLink to="/upload">Upload file with movies</NavLink></li>
                     <li><NavLink to="/movies">Movies</NavLink></li>
