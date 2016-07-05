@@ -13,7 +13,7 @@ describe('Movie API', function(){
         var app = express();
         console.log('!!!!!!!!!');
         //Bootstrap server
-        models = require('./../models')(wagner);
+        models = require('././models')(wagner);
 
         app.use(require("api")(wagner));
         

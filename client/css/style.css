@@ -1,3 +1,17 @@
+body {
+    max-width: 700px;
+    margin: auto;
+}
+
 .active {
     color: green;
+}
+
+ul[role=nav]{
+    display: flex;
+}
+
+ul[role=nav] > li{
+    flex: auto;
+    list-style-type: none;
 }

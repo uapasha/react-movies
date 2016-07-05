@@ -1,31 +1,17 @@
 var express = require("express");
 var status = require("http-status");
-var multer  =   require('multer');
-
-var storage =   multer.diskStorage({
-  destination: function (req, file, callback) {
-    callback(null, './uploads');
-  },
-  filename: function (req, file, callback) {
-    callback(null, file.fieldname + '-' + Date.now());
-  }
-});
-var limitOptions = {limits: {
-  fieldNameSize: 100,
-  files: 1,
-  fields: 5,
-  fileSize: 1000000
-}}
-var upload = multer({ storage : storage}, limitOptions).single('moviesFile');
+var path = require('path');
+var upload = require('./file-upload.js');
+var fs = require('fs');
+var populate = require('./file-loader.js');
 
 
-
-var findAllMovies = function(Movie, res){
+var findAllMovies = function (Movie, res) {
     Movie
         .find({})
         .sort({year: 1})
-        .exec(function(error, movies){
-            if (error){
+        .exec(function (error, movies) {
+            if (error) {
                 return res
                     .status(status.INTERNAL_SERVER_ERROR)
                     .json({error: error.toString()});
@@ -34,14 +20,14 @@ var findAllMovies = function(Movie, res){
         });
 };
 
-var findPageMovies = function(Movie, res, page){
+var findPageMovies = function (Movie, res, page) {
     Movie
         .find({})
         .sort({title: 1})
-        .skip((page-1)*20)
-        .limit(page*20)
-        .exec(function(error, movies){
-            if (error){
+        .skip((page - 1) * 20)
+        .limit(page * 20)
+        .exec(function (error, movies) {
+            if (error) {
                 return res
                     .status(status.INTERNAL_SERVER_ERROR)
                     .json({error: error.toString()});
@@ -50,33 +36,33 @@ var findPageMovies = function(Movie, res, page){
         });
 };
 
-module.exports = function(wagner) {
+module.exports = function (wagner) {
     var api = express.Router();
 
-    api.get('/movies/', wagner.invoke(function(Movie) {
-        return function(req, res){
+    api.get('/movies/', wagner.invoke(function (Movie) {
+        return function (req, res) {
             findAllMovies(Movie, res);
         };
     }));
 
-    api.get('/movies/page/:page/', wagner.invoke(function(Movie) {
-        return function(req, res){
+    api.get('/movies/page/:page/', wagner.invoke(function (Movie) {
+        return function (req, res) {
             var page = req.params.page;
             findPageMovies(Movie, res, page);
         };
     }));
-    
+
     ///// search api /////
-    api.get('/movies/search/:query', wagner.invoke(function(Movie) {
-        return function(req, res){
+    api.get('/movies/search/:query', wagner.invoke(function (Movie) {
+        return function (req, res) {
             Movie
                 .find(
-                    { $text: { $search: req.params.query}},
-                    { score: { $meta:'textScore'}})
+                    {$text: {$search: req.params.query}},
+                    {score: {$meta: 'textScore'}})
                 .sort({score: {$meta: 'textScore'}})
                 .limit(10)
-                .exec(function(error, movies){
-                    if (error){
+                .exec(function (error, movies) {
+                    if (error) {
                         return res
                             .status(status.INTERNAL_SERVER_ERROR)
                             .json({error: error.toString()});
@@ -84,7 +70,7 @@ module.exports = function(wagner) {
                     res.json({movies: movies})
                 })
         }
-    }))
+    }));
 
     api.post('/movies/', wagner.invoke(function (Movie) {
         return function (req, res) {
@@ -96,12 +82,16 @@ module.exports = function(wagner) {
             findAllMovies(Movie, res);
         }
     }));
-    
-    api.post('/movies/upload/',function(req,res){
-        upload(req,res,function(err) {
-            if(err) {
+
+    api.post('/movies/upload/', function (req, res) {
+        upload(req, res, function (err) {
+            if (err) {
                 return res.end("Error uploading file.");
             }
+
+            var file = req.file;
+            populate(file.path);
+
             res.end("File is uploaded");
         });
     });
@@ -116,12 +106,12 @@ module.exports = function(wagner) {
             res.json({'status': 'ok'});
             //res.redirect('/movies/');
         }
-        }));
+    }));
     api.get('/movies/delete/:id', wagner.invoke(function (Movie) {
         return function (req, res) {
             res.send('This is for deletion only');
         }
     }));
-    
+
     return api;
 };

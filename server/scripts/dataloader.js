@@ -3,9 +3,9 @@ var wagner = require('wagner-core');
 
 
 var path = require('path')
-var models = require('./models')(wagner);
+var models = require('././models')(wagner);
 
-var data = parser(path.join(__dirname, 'sample_movies (1).txt'));
+var data = parser(path.join(__dirname, '../', 'sample_movies.txt'));
 
 var Movie = models.Movie;
 

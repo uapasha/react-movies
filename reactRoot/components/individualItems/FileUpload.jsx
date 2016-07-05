@@ -5,20 +5,35 @@ const fileUploadUrl="http://localhost:3000/api/v1/movies/upload/";
 
 export default class FileUpload extends React.Component{
 
+    constructor(props){
+        super(props);
+        this.state = {
+            uploadSuccessful: false
+        }
+    }
+
     uploadFile(e) {
         e.preventDefault();
-        console.log(ReactDOM.findDOMNode(this.refs.file));
-        var fileData = new FormData();
-        fileData.append( 'moviesFile', ReactDOM.findDOMNode(this.refs.file).files[0] );
+
+        this.setState({
+            uploadSuccessful: false
+        });
         
-        //data.append('user', 'hubot')
+        var fileData = new FormData();
+
+        fileData.append( 'moviesFile', ReactDOM.findDOMNode(this.refs.file).files[0] );
+        ReactDOM.findDOMNode(this.refs.file).value = '';
 
         fetch(fileUploadUrl, {
             method: 'POST',
             body: fileData
-        }).then(function(data){
-                    alert(data)
-        }).catch((error) => console.error(error));
+        })
+        .then(() => {
+            this.setState({
+                uploadSuccessful: true
+            })
+        })
+        .catch((error) => console.error(error));
     }
 
     render(){
@@ -30,6 +45,7 @@ export default class FileUpload extends React.Component{
                 <input ref="file" type="file" name="moviesFile" className="upload-file"/>
                 <input type="submit" value="Upload File" name="submit"/>
             </form>
+            <p className="message">{this.state.uploadSuccessful ? 'File uploaded' : ''}</p>
         </fieldset>
     }
 }

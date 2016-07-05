@@ -4,7 +4,7 @@ var bodyParser = require('body-parser');
 var path = require('path');
 
 
-require("./models")(wagner);
+require("./api/models")(wagner);
 
 var app = express();
 
@@ -24,9 +24,9 @@ app.use(function(req, res, next) {
     res.setHeader('Cache-Control', 'no-cache');
     next();
 });
-app.use('/api/v1', require("./api")(wagner));
+app.use('/api/v1', require("./api/api")(wagner));
 
-app.use('', require("./homepage")());
+app.use('', require("./api/homepage")());
 
 app.listen(3000);
 console.log('Listening on port 3000!');

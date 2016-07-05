@@ -27,7 +27,7 @@ export default class MoviesLogic extends React.Component{
         fetch(url)
             .then((response) => response.json())
             .then((responseData) => {
-                console.log(responseData);
+
                 if (responseData.movies.length == 0 || responseData.movies.length < 20){
                     this.setState({
                         noMoreMovies: true
