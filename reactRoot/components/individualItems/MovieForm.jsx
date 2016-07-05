@@ -1,7 +1,8 @@
 import React from 'react';
 
 
-const submitUrl="http://localhost:3000/api/v1/movies/";
+//const submitUrl="/api/v1/movies/";
+const submitUrl="https://react-movies-uapasha-c9.c9users.io/api/v1/movies/";
 
 export default class MovieForm extends React.Component{
     constructor(props){

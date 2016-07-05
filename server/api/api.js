@@ -1,9 +1,9 @@
 var express = require("express");
 var status = require("http-status");
-var path = require('path');
+//var path = require('path');
 var upload = require('./file-upload.js');
-var fs = require('fs');
-var populate = require('./file-loader.js');
+//var fs = require('fs');
+//var populate = require('./file-loader.js');
 
 
 var findAllMovies = function (Movie, res) {
@@ -89,8 +89,8 @@ module.exports = function (wagner) {
                 return res.end("Error uploading file.");
             }
 
-            var file = req.file;
-            populate(file.path);
+            //var file = req.file;
+            //populate(file.path);
 
             res.end("File is uploaded");
         });

@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { Link } from 'react-router'
-import NavLink from './individualItems/NavLink.jsx'
+import NavLink from '../individualItems/NavLink.jsx'
 
 export default class MoviesBox extends React.Component{
 

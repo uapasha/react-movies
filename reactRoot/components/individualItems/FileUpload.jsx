@@ -1,7 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-const fileUploadUrl="http://localhost:3000/api/v1/movies/upload/";
+//const fileUploadUrl="/api/v1/movies/upload/";
+const fileUploadUrl="https://react-movies-uapasha-c9.c9users.io/api/v1/movies/upload/";
 
 export default class FileUpload extends React.Component{
 

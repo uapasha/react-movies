@@ -2,10 +2,10 @@ import React from 'react'
 import { render } from 'react-dom'
 import { Router, Route, hashHistory } from 'react-router'
 
-import MoviesBox from './components/MoviesBox.jsx';
+import MoviesBox from './components/containers/MoviesBox.jsx';
 import MovieForm from './components/individualItems/MovieForm.jsx';
 import FileUpload from './components/individualItems/FileUpload.jsx';
-import MoviesLogic from "./components/MoviesLogic.jsx";
+import MoviesLogic from "./components/containers/MoviesLogic.jsx";
 import SearchMovies from "./components/individualItems/SearchMovies.jsx";
 
 

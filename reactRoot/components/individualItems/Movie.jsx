@@ -1,7 +1,7 @@
 import React from 'react';
 
-const  deleteUrl="http://localhost:3000/api/v1/movies/delete/";
-
+//const  deleteUrl="/api/v1/movies/delete/";
+const  deleteUrl="https://react-movies-uapasha-c9.c9users.io/api/v1/movies/delete/";
 export default class Movie extends React.Component{
     constructor(props){
         super(props);

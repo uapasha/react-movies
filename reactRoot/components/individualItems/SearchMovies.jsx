@@ -1,8 +1,9 @@
 import React from 'react';
 
-import MoviesList from '../MoviesList.jsx';
+import MoviesList from '../containers/MoviesList.jsx';
 
-const searchUrl="http://localhost:3000/api/v1/movies/search/";
+//const searchUrl="/api/v1/movies/search/";
+const searchUrl='https://react-movies-uapasha-c9.c9users.io/api/v1/movies/search/';
 
 export default class SearchMovies extends React.Component{
     constructor(props){
@@ -32,6 +33,7 @@ export default class SearchMovies extends React.Component{
                 if (responseData.movies.length === 0){
 
                     this.setState({
+                        data: responseData,
                         found: false
                     });
 

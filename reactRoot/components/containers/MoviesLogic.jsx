@@ -2,8 +2,8 @@ import React from 'react';
 
 import MoviesList from './MoviesList.jsx';
 
-const getPageUrl="http://localhost:3000/api/v1/movies/page/";
-
+//const getPageUrl="http://localhost:3000/api/v1/movies/page/";
+const getPageUrl="https://react-movies-uapasha-c9.c9users.io/api/v1/movies/page/";
 export default class MoviesLogic extends React.Component{
     constructor(props){
         super(props);

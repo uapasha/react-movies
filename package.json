@@ -31,6 +31,6 @@
     "test": "mocha tests.js",
     "start": "node server/index.js",
     "webpack": "webpack --progress --colors --watch",
-    "loadData": "node server/dataloader.js"
+    "loadData": "node server/scripts/dataloader.js"
   }
 }
