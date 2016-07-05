@@ -1,9 +1,9 @@
 var express = require("express");
 var status = require("http-status");
-//var path = require('path');
+var path = require('path');
 var upload = require('./file-upload.js');
-//var fs = require('fs');
-//var populate = require('./file-loader.js');
+var fs = require('fs');
+var populate = require('./file-loader.js');
 
 
 var findAllMovies = function (Movie, res) {
@@ -83,18 +83,23 @@ module.exports = function (wagner) {
         }
     }));
 
-    api.post('/movies/upload/', function (req, res) {
-        upload(req, res, function (err) {
-            if (err) {
-                return res.end("Error uploading file.");
-            }
-
-            //var file = req.file;
-            //populate(file.path);
-
-            res.end("File is uploaded");
-        });
-    });
+    api.post('/movies/upload/', wagner.invoke(function (Movie) {
+            return function (req, res) {
+                upload(req, res, function (err) {
+                    
+                    if (err) {
+                        return res.end("Error uploading file.");
+                    }
+                    //var imported = {}
+                    var file = req.file;
+                    // import movies data and get number of imported movies
+                    populate(file.path, Movie);
+                    // console.log(imported);
+                    // res.json(imported);
+                    res.end("File is uploaded");
+            });
+        };
+    }));
 
 
     api.delete('/movies/delete/:id', wagner.invoke(function (Movie) {

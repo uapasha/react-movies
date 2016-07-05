@@ -9,7 +9,8 @@ export default class FileUpload extends React.Component{
     constructor(props){
         super(props);
         this.state = {
-            uploadSuccessful: false
+            uploadSuccessful: false,
+            numUploaded: 0,
         }
     }
 
@@ -29,9 +30,13 @@ export default class FileUpload extends React.Component{
             method: 'POST',
             body: fileData
         })
-        .then(() => {
+        // .then((response) => response.json()
+        // )
+        .then((result) => {
+            console.log(result.numSaved)
             this.setState({
-                uploadSuccessful: true
+                uploadSuccessful: true,
+                numUploaded: result.numSaved
             })
         })
         .catch((error) => console.error(error));
@@ -47,6 +52,8 @@ export default class FileUpload extends React.Component{
                 <input type="submit" value="Upload File" name="submit"/>
             </form>
             <p className="message">{this.state.uploadSuccessful ? 'File uploaded' : ''}</p>
+            <p className="message">{this.state.uploadSuccessful && this.state.numUploaded ? 
+                this.state.numUploaded + ' movies were added to database' : ''}</p>
         </fieldset>
     }
 }
