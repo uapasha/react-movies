@@ -1,0 +1,1 @@
+I was getting the redirect error for my python / tornado app running on ubuntu. Using localhost didn't work as the accepted answer highlighted. Google wants a public domain.

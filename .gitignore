@@ -3,4 +3,3 @@ data/
 node_modules/
 .idea
 bundle.js
-server/uploads/*
