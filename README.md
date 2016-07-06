@@ -13,3 +13,9 @@
 8. Start server: npm start
 9. Go to: http://localhost:3000/
 10. Enjoy!
+
+### Architecture in two words: 
+- MongoDB with the help of Mongoose keeps data
+- NodeJS Express server serves API and index.html file
+- ReactJS renders client part and provides interactive experience
+- ReactJS is build into bundle.js with webpack 
