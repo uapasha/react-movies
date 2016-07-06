@@ -10,6 +10,6 @@
   - on c9.io Linux: mongod --bind_ip=$IP --dbpath=data --nojournal --rest "$@"
 6. Load dummy content: npm run loadData
 7. Build source: npm run webpack
-8. Start server: node server/index.js
-9. Go to: http://localhost:3000
+8. Start server: npm start
+9. Go to: http://localhost:3000/
 10. Enjoy!
