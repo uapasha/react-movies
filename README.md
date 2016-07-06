@@ -18,4 +18,4 @@
 - MongoDB with the help of Mongoose keeps data
 - NodeJS Express server serves API and index.html file
 - ReactJS renders client part and provides interactive experience
-- ReactJS is build into bundle.js with webpack 
+- ReactJS for client is build into bundle.js with webpack 
