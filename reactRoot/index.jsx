@@ -1,6 +1,6 @@
 import React from 'react'
 import { render } from 'react-dom'
-import { Router, Route, hashHistory } from 'react-router'
+import { Router, Route, hashHistory, IndexRoute } from 'react-router'
 
 import MoviesBox from './containers/MoviesBox.jsx';
 import MovieForm from './individualItems/MovieForm.jsx';
@@ -13,7 +13,7 @@ import Welcome from "./individualItems/Welcome.jsx"
 render((
         <Router history={hashHistory}>
             <Route path="/" component={MoviesBox}>
-                <Route path="/home" component = {Welcome}/>
+                <IndexRoute component={Welcome}/>
                 <Route path="/new" component = {MovieForm}/>
                 <Route path="/upload" component={FileUpload}/>
                 <Route path="/movies" component={MoviesMain}/>
