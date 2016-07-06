@@ -18,13 +18,10 @@ var populate = function (filepath, Movie) {
                     if (err.code !== 11000) {
                         return console.error(err)
                     }
-
                 }
             });
         }
-
     });
-
 };
 
 module.exports = populate;

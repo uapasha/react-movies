@@ -28,7 +28,7 @@
     "webpack": "^1.12.13"
   },
   "scripts": {
-    "test": "mocha tests.js",
+    "test": "mocha ./server/tests/tests.js",
     "start": "node server/index.js",
     "webpack": "webpack --progress --colors --watch",
     "loadData": "node server/scripts/dataloader.js"

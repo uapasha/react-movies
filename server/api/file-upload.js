@@ -1,7 +1,10 @@
 var multer = require('multer');
 var path = require('path');
 
+// configure storage
+//TODO make node create folder for uploads if needed
 var storage = multer.diskStorage({
+
     destination: function (req, file, callback) {
         var dir = path.join(__dirname, '../', 'uploads/');
         callback(null, dir);
@@ -11,6 +14,8 @@ var storage = multer.diskStorage({
     }
 });
 
+
+// limits
 var limitOptions = {
     limits: {
         fieldNameSize: 100,
@@ -23,7 +28,7 @@ var limitOptions = {
 var upload = multer({
     storage: storage,
     limitOptions,
-    fileFilter: function (req, file, cb) {
+    fileFilter: function (req, file, cb) { // filter files of the wrong types
         if (path.extname(file.originalname) !== '.txt') {
             return cb(new Error('Only .txt is allowed'))
         }

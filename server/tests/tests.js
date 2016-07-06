@@ -5,30 +5,31 @@ var wagner = require('wagner-core');
 
 var URL_ROOT = 'http://localhost:3000';
 
-describe('Movie API', function(){
-    var server;
-    var Movie;
-    
+var server;
+var Movie;
+
+describe('Movie API', function () {
+
     before(function () {
         var app = express();
-        console.log('!!!!!!!!!');
-        //Bootstrap server
-        models = require('././models')(wagner);
 
-        app.use(require("api")(wagner));
-        
+        //Bootstrap server
+        models = require('../api/models.js')(wagner);
+
+        app.use(require("../api/api")(wagner));
+
         server = app.listen(3000);
-        
+
         // Make Movie category available in tests
         Movie = models.Movie;
         console.log(Movie);
-        
+
     });
     after(function () {
         //Shut the server when we're done
         server.close();
     });
-    
+
     beforeEach(function (done) {
         // Make sure movies are empty before each test
         Movie.remove({}, function (error) {
@@ -37,12 +38,12 @@ describe('Movie API', function(){
         });
     });
 });
-it('can load movies', function(done){
+it('can load movies', function (done) {
     // Create a single movie
-    Movie.create({title: 'Six senses'}, function (error, doc) {
+    Movie.create({title: 'Six Senses'}, function (error, doc) {
         assert.ifError(error);
         var url = URL_ROOT + '/movies/';
-        // Maje an HTTP request to localhost:3000/movies
+        // Maje an HTTP request to localhost:3000/movies/
         superagent.get(url, function (error, res) {
             assert.ifError(error);
             var result;
@@ -51,7 +52,7 @@ it('can load movies', function(done){
                 result = JSON.parse(res.text);
             });
             assert.ok(result.movies);
-            assert.equal(result.movies[0].title,  "Six Senses");
+            assert.equal(result.movies[0].title, "Six Senses");
             done();
         });
     });

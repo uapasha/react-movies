@@ -66,16 +66,23 @@ export default class SearchMovies extends React.Component {
         return (
             <div>
                 <h2>Search for a movie</h2>
+
                 <form className="movieSearch" onSubmit={this.handleSubmit}>
-                    <input type="text" placeholder="Enter movie title or name of the Star"
-                           value={this.state.query} onChange={this.handleQueryChange}/>
-                    <input type="submit" value="Search Movie by title or actor"/>
+                    <input type="text"
+                           placeholder="Enter movie title or name of the Star"
+                           value={this.state.query}
+                           onChange={this.handleQueryChange}/>
+
+                    <input type="submit"
+                           value="Search Movie by title or actor"/>
                 </form>
+
                 <MoviesList reRender={this.reRender.bind(this)}
                             data={this.state.data.movies ? 
                                 this.state.data.movies : 
                                 this.state.data}
                             search={true}/>
+
                 {this.state.found ?
                     '' :
                     <p className="message">Nothing found</p>
@@ -83,5 +90,4 @@ export default class SearchMovies extends React.Component {
             </div>
         );
     }
-
 }

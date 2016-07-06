@@ -9,7 +9,6 @@ import MoviesMain from "./containers/MoviesMain.jsx";
 import SearchMovies from "./individualItems/SearchMovies.jsx";
 import Welcome from "./individualItems/Welcome.jsx"
 
-
 render((
         <Router history={hashHistory}>
             <Route path="/" component={MoviesBox}>
@@ -21,4 +20,3 @@ render((
             </Route>
         </Router>
     ),document.getElementById('content'));
-

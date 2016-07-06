@@ -9,6 +9,7 @@ var movieSchema = {
 
 var schema = new mongoose.Schema(movieSchema);
 
+// index fields for search
 schema.index({
     title: 'text',
     stars: 'text'

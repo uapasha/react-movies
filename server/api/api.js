@@ -5,7 +5,7 @@ var upload = require('./file-upload.js');
 var fs = require('fs');
 var populate = require('./file-loader.js');
 
-
+/////  helpers functions /////
 var findAllMovies = function (Movie, res) {
     Movie
         .find({})
@@ -36,15 +36,19 @@ var findPageMovies = function (Movie, res, page) {
         });
 };
 
+
+///// API /////
 module.exports = function (wagner) {
     var api = express.Router();
 
+    ///// all movies /////
     api.get('/movies/', wagner.invoke(function (Movie) {
         return function (req, res) {
             findAllMovies(Movie, res);
         };
     }));
 
+    ///// movies by page /////
     api.get('/movies/page/:page/', wagner.invoke(function (Movie) {
         return function (req, res) {
             var page = req.params.page;
@@ -52,7 +56,7 @@ module.exports = function (wagner) {
         };
     }));
 
-    ///// search api /////
+    ///// search for movies /////
     api.get('/movies/search/:query', wagner.invoke(function (Movie) {
         return function (req, res) {
             Movie
@@ -72,6 +76,7 @@ module.exports = function (wagner) {
         }
     }));
 
+    ///// add movie /////
     api.post('/movies/', wagner.invoke(function (Movie) {
         return function (req, res) {
             var movie = req.body;
@@ -83,6 +88,7 @@ module.exports = function (wagner) {
         }
     }));
 
+    ///// upload file /////
     api.post('/movies/upload/', wagner.invoke(function (Movie) {
         return function (req, res) {
             upload(req, res, function (err) {
@@ -102,7 +108,7 @@ module.exports = function (wagner) {
         };
     }));
 
-
+    ///// delete movie /////
     api.delete('/movies/delete/:id', wagner.invoke(function (Movie) {
         return function (req, res) {
             var _id = req.params.id;
@@ -110,12 +116,13 @@ module.exports = function (wagner) {
                 if (err) return console.error(err);
             });
             res.json({'status': 'ok'});
-            //res.redirect('/movies/');
+
         }
     }));
+    ///// if delete send with get /////
     api.get('/movies/delete/:id', wagner.invoke(function (Movie) {
         return function (req, res) {
-            res.send('This is for deletion only');
+            res.send('This is for DELETE requests only');
         }
     }));
 

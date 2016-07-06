@@ -72,13 +72,16 @@ export default class Movie extends React.Component {
     renderStars() {
         if (this.props.movie.stars && this.props.movie.stars.length > 0) {
             let numForKey = 0;
+
             return <ul className="movieStars">
+
                 <h3>Stars:</h3>
                 {this.props.movie.stars.map((star) => {
                     numForKey += 1;
                     return <li key={star + "_" + numForKey}>{star}</li>
                 })}
             </ul>
+            
         } else return <p className="message">No stars are provided</p>
     }
 

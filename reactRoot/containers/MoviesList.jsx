@@ -35,7 +35,6 @@ export default class MoviesList extends React.Component {
 
     }
 
-
     handleSortDirectionMethods(e) {
         this.setState({
             sortDirection: e.target.value,
@@ -48,14 +47,18 @@ export default class MoviesList extends React.Component {
     sort(nextProps, sortBy) {
         var sortAsc, sortDesc;
         let sortCriterium = this.state.sortBy;
+
         if (!!sortBy && sortCriterium !== sortBy) {
             sortCriterium = sortBy;
         }
+
         switch (sortCriterium) {
+
             case "year" :
                 sortAsc = (a, b) => parseInt(a.year, 10) - parseInt(b.year, 10);
                 sortDesc = (a, b) => parseInt(b.year, 10) - parseInt(a.year, 10);
                 break;
+
             case "format":
                 sortAsc = function (a, b) {
                     if (a.format.toLowerCase() > b.format.toLowerCase()) {
@@ -72,6 +75,7 @@ export default class MoviesList extends React.Component {
                     } else return 0
                 };
                 break;
+
             default:
                 sortAsc = function (a, b) {
                     if (a.title.toLowerCase() > b.title.toLowerCase()) {
@@ -118,18 +122,25 @@ export default class MoviesList extends React.Component {
 
     render() {
         return <div className="moviesList">
+
             <div className='sortInput'>
                 <strong> Sort movies: </strong>
-                <select name="changeSortBy" onChange={this.handleSortByChange} value={this.state.sortBy}>
+
+                <select name="changeSortBy"
+                        onChange={this.handleSortByChange}
+                        value={this.state.sortBy}>
 
                     {this.state.sortByMethods.map((method) => {
 
-                        return <option key={"select" + method} value={method}>
+                        return <option key={"select" + method}
+                                       value={method}>
                             {method.charAt(0).toUpperCase() + method.substring(1).toLowerCase()}
                         </option>
-                    })}
+                        })
+                    }
 
                 </select>
+
                 <select name="changeSortBy" onChange={this.handleSortDirectionMethods}
                         value={this.state.sortDirection}>
 
@@ -138,9 +149,10 @@ export default class MoviesList extends React.Component {
                         return <option key={"select" + method} value={method}>
                             {method == 'asc' ? "Ascending" : "Descending"}
                         </option>
-                    })}
-
+                        })
+                    }
                 </select>
+
             </div>
             <hr/>
             {this.renderMovies()}

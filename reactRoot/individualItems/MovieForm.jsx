@@ -1,6 +1,5 @@
 import React from 'react';
 
-
 const submitUrl="/api/v1/movies/";
 //const submitUrl="https://react-movies-uapasha-c9.c9users.io/api/v1/movies/";
 
@@ -41,8 +40,6 @@ export default class MovieForm extends React.Component{
             body: JSON.stringify(movie)
         })
             .catch((error) => console.error(error));
-
-        //TODO optimistic updates ??
     }
 
     handleTitleChange(e){
@@ -88,13 +85,17 @@ export default class MovieForm extends React.Component{
     renderAddStars(){
         let numForKey = 0;
         return <div className="newMovieStars">
+
             <input
                 type="text"
                 placeholder="Enter new star name"
                 onChange={this.handleStarChange}
                 value={this.state.newStar}/>
+
             <button onClick={this.addStar}>Add star</button>
+
             {this.state.stars.length === 0 ? <p className="message">No stars added</p> : <h2>Stars Added:</h2>}
+
             {this.state.stars.map((star)=> {
                 numForKey += 1;
                 return <div key={"star_" + numForKey} className="newStar">
@@ -108,23 +109,27 @@ export default class MovieForm extends React.Component{
     render(){
         return<form className="movieForm" onSubmit={this.handleSubmit}>
             <h2>Add information about a movie</h2>
+
             <input type="text"
                    placeholder="Enter movie name"
                    required
                    value={this.state.title}
                    onChange={this.handleTitleChange}/>
+
             <label>Year
                 <input type="number"
                        name="year"
                        min="1896"
                        max={new Date().getFullYear() + 5}
                        value={this.state.year}
-                       onChange={this.handleYearChange}
-                />
+                       onChange={this.handleYearChange}/>
             </label>
+            
             <input type="text" placeholder="Enter movie format"
                    value={this.state.format} onChange={this.handleFormatChange}/>
+
             {this.renderAddStars()}
+
             <input type="submit" value="Add Movie" />
         </form>
     }

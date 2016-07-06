@@ -26,22 +26,22 @@ export default class MoviesMain extends React.Component {
     fetchData() {
         const url = getPageUrl + this.state.page + '/';
         fetch(url)
-            .then((response) => response.json())
-            .then((responseData) => {
+        .then((response) => response.json())
+        .then((responseData) => {
 
-                if (responseData.movies.length == 0 || responseData.movies.length < 20) {
-                    this.setState({
-                        noMoreMovies: true
-                    })
-                }
-                let allMovies = this.state.data.concat(responseData.movies);
-
+            if (responseData.movies.length == 0 || responseData.movies.length < 20) {
                 this.setState({
-                    data: allMovies,
-                    page: this.state.page + 1
-                });
-            })
-            .catch((error) => console.error(error));
+                    noMoreMovies: true
+                })
+            }
+            let allMovies = this.state.data.concat(responseData.movies);
+
+            this.setState({
+                data: allMovies,
+                page: this.state.page + 1
+            });
+        })
+        .catch((error) => console.error(error));
 
     }
 
@@ -52,15 +52,20 @@ export default class MoviesMain extends React.Component {
     render() {
         return (
             <div>
+
                 <h2>Browse movies</h2>
+
                 <MoviesList reRender={this.reRender.bind(this)}
                             data={this.state.data.movies ?
                                 this.state.data.movies :
                                 this.state.data}/>
                 <hr/>
+                
                 {this.state.noMoreMovies ?
+
                     <p className="message">No more movies to load</p> :
-                    <button onClick={this.fetchData.bind(this)} className="loadMore">Load More</button>}
+                    <button onClick={this.fetchData.bind(this)} className="loadMore">Load More</button>
+                }
                 <hr/>
             </div>
         );
